@@ -9,9 +9,37 @@
             Console.WriteLine("1- Roteamento de menor custo\n2- Capacidade Máxima de Escoamento\n3- Expansão da Rede de Comunicação\n4- Agendamento de Manutenções sem Conflito\n5- Rota Única de Inspeção\n6- Sair");
         }
 
-        static void LerDadosGrafo() // colocar retorno certo depois
+        static GrafoDirecionado LerDadosGrafo(StreamReader arq) 
         {
-            // implementar para ler dados de um arquivo e a partir disso montar um grafo 
+            GrafoDirecionado grafo = new GrafoDirecionado();
+            int numVertices, numArestas; string linha = arq.ReadLine();
+            string[] valores = linha.Split(' ');
+            numVertices = int.Parse(valores[0]);
+
+            for(int i = 1; i<=numVertices; i++)
+            {
+                grafo.AdicionarVertice(new Vertice(i));
+            }
+            numArestas = int.Parse(valores[1]);
+            linha = arq.ReadLine();
+            for(int i = 0; i<numArestas; i++)
+            {
+                valores = linha.Split(" ");
+
+                // 0: origem (v), 1: destino (w), 2: peso; 3: capacidade
+
+                int origem = int.Parse(valores[0]);
+                int destino = int.Parse(valores[1]);
+                Aresta aresta = new Aresta(grafo.VerticeDeNumero(origem), grafo.VerticeDeNumero(destino));
+                aresta.DefinirPeso(int.Parse(valores[2]));
+                aresta.DefinirCapacidade(int.Parse(valores[3]));
+                grafo.AdicionarAresta(aresta);
+
+                linha = arq.ReadLine();
+
+            }
+
+            return grafo;
         }
 
         // método para calcular densidade fica aqui ou na classe grafo? outra?
@@ -56,7 +84,8 @@
                         break;
                 }
 
-            } while (opc != 6);
+            } while (opc != 6); 
+          
         }
     }
 }
