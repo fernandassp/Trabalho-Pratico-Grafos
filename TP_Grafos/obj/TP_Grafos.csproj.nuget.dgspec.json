@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\migol\\OneDrive\\Área de Trabalho\\estudo\\semestre4\\TP\\Trabalho-Pratico-Grafos\\TP_Grafos\\TP_Grafos.csproj": {}
+    "C:\\fe\\Puc\\4º periodo\\Grafos\\TrabalhoPratico\\TP_Grafos\\TP_Grafos\\TP_Grafos.csproj": {}
   },
   "projects": {
-    "C:\\Users\\migol\\OneDrive\\Área de Trabalho\\estudo\\semestre4\\TP\\Trabalho-Pratico-Grafos\\TP_Grafos\\TP_Grafos.csproj": {
+    "C:\\fe\\Puc\\4º periodo\\Grafos\\TrabalhoPratico\\TP_Grafos\\TP_Grafos\\TP_Grafos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\migol\\OneDrive\\Área de Trabalho\\estudo\\semestre4\\TP\\Trabalho-Pratico-Grafos\\TP_Grafos\\TP_Grafos.csproj",
+        "projectUniqueName": "C:\\fe\\Puc\\4º periodo\\Grafos\\TrabalhoPratico\\TP_Grafos\\TP_Grafos\\TP_Grafos.csproj",
         "projectName": "TP_Grafos",
-        "projectPath": "C:\\Users\\migol\\OneDrive\\Área de Trabalho\\estudo\\semestre4\\TP\\Trabalho-Pratico-Grafos\\TP_Grafos\\TP_Grafos.csproj",
-        "packagesPath": "C:\\Users\\migol\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\migol\\OneDrive\\Área de Trabalho\\estudo\\semestre4\\TP\\Trabalho-Pratico-Grafos\\TP_Grafos\\obj\\",
+        "projectPath": "C:\\fe\\Puc\\4º periodo\\Grafos\\TrabalhoPratico\\TP_Grafos\\TP_Grafos\\TP_Grafos.csproj",
+        "packagesPath": "C:\\Users\\Fernanda\\.nuget\\packages\\",
+        "outputPath": "C:\\fe\\Puc\\4º periodo\\Grafos\\TrabalhoPratico\\TP_Grafos\\TP_Grafos\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\migol\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Fernanda\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,7 +44,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.200"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -65,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.203/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
