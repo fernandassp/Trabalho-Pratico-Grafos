@@ -11,6 +11,10 @@ namespace TP_Grafos
         int _numero; // ex.: vertice 1, vertice 2...
         int _id; // caso precise
         static int _proxId = 1;
+
+        int _distancia;     //bellmanford
+        Vertice _predecessor; //bellmanford
+
         public Vertice(int num)
         {
             _id = _proxId;
@@ -22,5 +26,20 @@ namespace TP_Grafos
         {
             return _numero;
         }
+
+        public void SetDistancia(int distancia)
+        {
+            _distancia = distancia;
+        }
+        public int GetDistancia()
+        {
+            return _distancia;
+        }
+
+        public void SetPredecessor(Vertice predecessor)
+        {
+            _predecessor = predecessor;
+        }
+      
     }
 }
