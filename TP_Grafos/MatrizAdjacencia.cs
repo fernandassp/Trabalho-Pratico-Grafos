@@ -47,5 +47,30 @@ namespace TP_Grafos
             return int.Parse(div[1]);
         }
 
+        
+        public List<Aresta> GetArestas()
+        {
+            List<Aresta> arestas = new List<Aresta>();
+            for(int i = 0; i< matriz.GetLength(0); i++)
+            {
+                for(int j = 0; j < matriz.GetLength(1); j++)
+                {
+                    if (matriz[i,j] != null)
+                    {
+                        Aresta aresta = new Aresta(i , j);
+                        string[] dados = matriz[i,j].Split("-");
+                        aresta.DefinirPeso(int.Parse(dados[0]));
+                        aresta.DefinirCapacidade(int.Parse(dados[1]));
+                        arestas.Add(aresta);
+                    }
+                }
+            }
+            return arestas;
+        }
+
+        public int GetQuantVertices()
+        {
+            return matriz.GetLength(0);
+        }
     }
 }

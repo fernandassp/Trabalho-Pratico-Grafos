@@ -9,6 +9,7 @@
             Console.WriteLine("1- Roteamento de menor custo\n2- Capacidade Máxima de Escoamento\n3- Expansão da Rede de Comunicação\n4- Agendamento de Manutenções sem Conflito\n5- Rota Única de Inspeção\n6- Sair");
         }
 
+        /*
         static GrafoDirecionado LerDadosGrafo(StreamReader arq) 
         {
             GrafoDirecionado grafo = new GrafoDirecionado();
@@ -41,6 +42,7 @@
 
             return grafo;
         }
+        */
 
 
         static void Main(string[] args)

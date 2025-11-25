@@ -8,20 +8,20 @@ namespace TP_Grafos
 {
     internal class Aresta
     {
-        Vertice _v;
-        Vertice _w;
+        int _v;
+        int _w;
         int _peso; // é sempre inteiro?
         int _capacidade; // é sempre inteiro?
 
-        public Aresta(Vertice origem, Vertice destino)
+        public Aresta(int origem, int destino)
         {
             _v = origem; _w = destino;
         }
-        public Vertice GetV()
+        public int GetV()
         {
             return _v;
         }
-        public Vertice GetW()
+        public int GetW()
         {
             return _w;
         }

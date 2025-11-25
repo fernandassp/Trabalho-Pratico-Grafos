@@ -10,11 +10,6 @@ namespace TP_Grafos
     {
         IArmazenamento armazenamento;
 
-        public GrafoDirecionado()
-        {
-            _vertices = new List<Vertice>();
-            _arestas = new List<Aresta>();
-        }
         public void AdicionarVertice()
         {
             armazenamento.AdicionarVertice();
@@ -24,7 +19,7 @@ namespace TP_Grafos
             armazenamento.AdicionarAresta(vertA,vertB,peso,capacidade);
         }
 
-        public Vertice VerticeDeNumero(int num)
+        /*public Vertice VerticeDeNumero(int num)
         {
             foreach(Vertice vertice in _vertices)
             {
@@ -32,16 +27,19 @@ namespace TP_Grafos
             }
             return null;
         }
+        */
 
-        public List<Vertice> GetVertices()
+        /*public List<Vertice> GetVertices()
         {
-            return _vertices;
-        }
+            return armazenamento.GetVertices();
+        }*/
+
         public List<Aresta> GetArestas()
         {
-            return _arestas;
+            return armazenamento.GetArestas();
         }
 
+        /*
         private bool ExisteNoGrafo(Vertice v)
         {
             if (_vertices.Contains(v)) //n sei se isso funciona mesmo
@@ -49,7 +47,8 @@ namespace TP_Grafos
                 return true;
             }
             return false;
-        }
+        }*/
+
         public int BellmanFordEntre(Vertice origem, Vertice destino)
         {
             if(!ExisteNoGrafo(origem) || !ExisteNoGrafo(destino))
