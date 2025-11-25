@@ -42,7 +42,6 @@
             return grafo;
         }
 
-        // método para calcular densidade fica aqui ou na classe grafo? outra?
 
         static void Main(string[] args)
         {

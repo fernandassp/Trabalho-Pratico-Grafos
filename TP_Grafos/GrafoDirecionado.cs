@@ -8,22 +8,20 @@ namespace TP_Grafos
 {
     internal class GrafoDirecionado
     {
-        List<Vertice> _vertices;
-        List<Aresta> _arestas;
-        // lista ou matriz de adjacência de acordo com a densidade
+        IArmazenamento armazenamento;
 
         public GrafoDirecionado()
         {
             _vertices = new List<Vertice>();
             _arestas = new List<Aresta>();
         }
-        public void AdicionarAresta(Aresta aresta)
+        public void AdicionarVertice()
         {
-            _arestas.Add(aresta);
+            armazenamento.AdicionarVertice();
         }
-        public void AdicionarVertice(Vertice vertice)
+        public void AdicionarAresta(int vertA, int vertB, int peso, int capacidade)
         {
-            _vertices.Add(vertice);
+            armazenamento.AdicionarAresta(vertA,vertB,peso,capacidade);
         }
 
         public Vertice VerticeDeNumero(int num)
