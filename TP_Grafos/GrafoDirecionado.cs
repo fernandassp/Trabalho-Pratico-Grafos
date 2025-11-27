@@ -12,8 +12,8 @@ namespace TP_Grafos
 
         public GrafoDirecionado(StreamReader arq)
         {
-            //armazenamento = new ListaAdjacencia(arq);
-            armazenamento = new MatrizAdjacencia(arq);
+            armazenamento = new ListaAdjacencia(arq);
+            //armazenamento = new MatrizAdjacencia(arq);
         }
         public void AdicionarVertice()
         {
@@ -41,9 +41,6 @@ namespace TP_Grafos
             {
                 
                 LinkedList<Aresta> incidentes = armazenamento.GetArestasIncidentes(vertice);
-                foreach (Aresta a in incidentes) {
-                    Console.WriteLine(a);
-                }
 
                 foreach (Aresta incidente in incidentes)
                 {
@@ -57,25 +54,24 @@ namespace TP_Grafos
         }
         public int DijkstraEntre(int origem, int destino)
         {
-            Console.WriteLine("GetQuantVertices(): " + GetQuantVertices());
             int[,] resultados = new int[2, GetQuantVertices()]; // [0,i]: dist; [1,i]: pred
-            // inicialização
+            // -1 pra null, intMaxValue pra infinito
             for (int i = 0; i < resultados.GetLength(1); i++)
             {
                 resultados[1, i] = -1;           // predecessor
                 resultados[0, i] = int.MaxValue; // distância
             }
-            resultados[0, origem - 1] = 0;
+            resultados[0, origem - 1] = 0; // raiz
 
             List<int> explorados = new List<int>();
             explorados.Add(origem);
 
-            // ALTERAÇÃO IMPORTANTE: usar "while", não "for"
-            while (explorados.Count < GetQuantVertices())
+            
+            for (int i = 0; i < GetQuantVertices(); i++)
             {
                 List<Aresta> corteS = DefinirCorteS(explorados);
 
-                // CORREÇÃO DO ERRO: corte vazio = não há mais caminhos possíveis
+                // corte vazio = não há mais caminhos possíveis
                 if (corteS.Count == 0)
                 {
                     // Não há como continuar — o destino pode ser inalcançável
@@ -83,7 +79,7 @@ namespace TP_Grafos
                 }
 
                 int menorDist = int.MaxValue;
-                Aresta selecionada = corteS[0];  // seguro, porque CorteS não está vazio
+                Aresta selecionada = corteS.ElementAt(0);
 
                 foreach (Aresta a in corteS)
                 {
@@ -96,8 +92,8 @@ namespace TP_Grafos
                     }
                 }
 
-                // impedir adicionar o mesmo vértice duas vezes
-                if (!explorados.Contains(selecionada.GetSucessor()))
+                // impedir adicionar o mesmo vértice duas vezes - VER SE PRECISA
+               // if (!explorados.Contains(selecionada.GetSucessor()))
                     explorados.Add(selecionada.GetSucessor());
 
                 resultados[1, selecionada.GetSucessor() - 1] = selecionada.GetAntecessor();
