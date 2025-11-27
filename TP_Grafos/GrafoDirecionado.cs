@@ -16,7 +16,7 @@ namespace TP_Grafos
         }
         public void AdicionarAresta(int vertA, int vertB, int peso, int capacidade)
         {
-            armazenamento.AdicionarAresta(vertA,vertB,peso,capacidade);
+            armazenamento.AdicionarAresta(vertA, vertB, peso, capacidade);
         }
 
         /*public Vertice VerticeDeNumero(int num)
@@ -95,33 +95,55 @@ namespace TP_Grafos
             int[,] resultados = new int[2, GetQuantVertices()]; // [0,0]: dist vertice 1; [1,0]: pred. vertice 1
             // -1 para null, int max value para infinito
 
-            for(int i = 0; i< resultados.GetLength(1); i++)
+            for (int i = 0; i < resultados.GetLength(1); i++)
             {
                 resultados[1, i] = -1; // definir predecessores como "null"
                 resultados[0, i] = int.MaxValue; //distancias: infinito
             }
             resultados[0, origem - 1] = 0; // dist raiz = 0
-                                           
+
             List<int> explorados = new List<int>();
             explorados.Add(origem);
 
-            for(int i = 0; i<GetQuantVertices(); i++)
+            for (int i = 0; i < GetQuantVertices(); i++)
             {
-                List<Aresta> corteS = DefinirCorteS(explorados);
+                List<PseudoAresta> corteS = DefinirCorteS(explorados); //att corte
+
+                int menorDist = int.MaxValue;
+                PseudoAresta selecionada = corteS.ElementAt(0);
+
+                foreach (PseudoAresta a in corteS)
+                {
+                    int distV = resultados[0, a.GetAntecessor() - 1];
+                    if (distV != int.MaxValue && a.GetPeso() + distV < menorDist)
+                    {
+                        menorDist = a.GetPeso() + distV;
+                        selecionada = a;
+                    }
+                }
+
+                explorados.Add(selecionada.GetSucessor());
+                resultados[1, selecionada.GetSucessor() - 1] = selecionada.GetAntecessor();
+                int distanciaVSelecionada = resultados[0, selecionada.GetAntecessor() - 1];
+                resultados[0, selecionada.GetSucessor() - 1] = selecionada.GetPeso() + distanciaVSelecionada;
             }
 
+            return resultados[0, destino - 1];
         }
 
-        private List<Aresta> DefinirCorteS(List<int> explorados)
+        private List<PseudoAresta> DefinirCorteS(List<int> explorados)
         {
-            List<Aresta> corteS = new List<Aresta>();
+            List<PseudoAresta> corteS = new List<PseudoAresta>();
 
             foreach (int vertice in explorados)
             {
-                List<PseudoVertice> vizinhos = armazenamento.GetVizinhos(vertice);
-                foreach (PseudoVertice vizinho in vizinhos)
+                LinkedList<PseudoAresta> incidentes = armazenamento.GetArestasIncidentes(vertice);
+                foreach (PseudoAresta incidente in incidentes)
                 {
-
+                    if (!explorados.Contains(incidente.GetSucessor()))
+                    {
+                        corteS.Add(incidente);
+                    }
                 }
             }
 

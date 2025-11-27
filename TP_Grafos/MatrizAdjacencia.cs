@@ -72,5 +72,15 @@ namespace TP_Grafos
         {
             return matriz.GetLength(0);
         }
+        public List<PseudoAresta> GetArestas() { }
+        public List<PseudoVertice> GetArestasIncidentes(int numVertice) {
+            List<PseudoVertice>
+            for (int i = 0; i < matriz.GetLength(0); i++) {
+                if (matriz[numVertice, i] != null)
+                {
+
+                }
+            }
+        }
     }
 }

@@ -15,7 +15,6 @@ namespace TP_Grafos
         public List<PseudoAresta> GetArestas();
 
         public int GetQuantVertices();
-
-        public List<PseudoVertice> GetVizinhos(int numVertice);
+        public LinkedList<PseudoAresta> GetArestasIncidentes(int numVertice);
     }
 }
