@@ -10,6 +10,10 @@ namespace TP_Grafos
     {
         IArmazenamento armazenamento;
 
+        public GrafoDirecionado(StreamReader arq)
+        {
+            armazenamento = new ListaAdjacencia(arq);
+        }
         public void AdicionarVertice()
         {
             armazenamento.AdicionarVertice();
@@ -31,44 +35,52 @@ namespace TP_Grafos
 
         public int DijkstraEntre(int origem, int destino)
         {
-            int[,] resultados = new int[2, GetQuantVertices()]; // [0,0]: dist vertice 1; [1,0]: pred. vertice 1
+            int[,] resultados = new int[2, GetQuantVertices()]; // [0,i]: dist; [1,i]: pred
             // -1 para null, int max value para infinito
 
             for (int i = 0; i < resultados.GetLength(1); i++)
             {
-                resultados[1, i] = -1; // definir predecessores como "null"
-                resultados[0, i] = int.MaxValue; //distancias: infinito
+                resultados[1, i] = -1;           // predecessor
+                resultados[0, i] = int.MaxValue; // distância
             }
-            resultados[0, origem - 1] = 0; // dist raiz = 0
+            resultados[0, origem - 1] = 0; // raiz
 
             List<int> explorados = new List<int>();
             explorados.Add(origem);
 
-            for (int i = 0; i < GetQuantVertices(); i++)
+            
+            while (explorados.Count < GetQuantVertices())
             {
-                List<Aresta> corteS = DefinirCorteS(explorados); //att corte
+                List<Aresta> corteS = DefinirCorteS(explorados);
 
-                int menorDist = int.MaxValue;
-                Aresta selecionada = corteS.ElementAt(0);
-
-                foreach (Aresta a in corteS)
+                //corte vazio = não há mais caminhos possíveis
+                if (corteS.Count != 0)
                 {
-                    int distV = resultados[0, a.GetAntecessor() - 1];
-                    if (distV != int.MaxValue && a.GetPeso() + distV < menorDist)
+                    int menorDist = int.MaxValue;
+                    Aresta selecionada = corteS.ElementAt(0);
+
+                    foreach (Aresta a in corteS)
                     {
-                        menorDist = a.GetPeso() + distV;
-                        selecionada = a;
+                        int distV = resultados[0, a.GetAntecessor() - 1];
+
+                        if (distV != int.MaxValue && a.GetPeso() + distV < menorDist)
+                        {
+                            menorDist = a.GetPeso() + distV;
+                            selecionada = a;
+                        }
                     }
-                }
 
-                explorados.Add(selecionada.GetSucessor());
-                resultados[1, selecionada.GetSucessor() - 1] = selecionada.GetAntecessor();
-                int distanciaVSelecionada = resultados[0, selecionada.GetAntecessor() - 1];
-                resultados[0, selecionada.GetSucessor() - 1] = selecionada.GetPeso() + distanciaVSelecionada;
+                    // impedir adicionar o mesmo vértice duas vezes
+                    if (!explorados.Contains(selecionada.GetSucessor()))
+                        explorados.Add(selecionada.GetSucessor());
+                    resultados[1, selecionada.GetSucessor() - 1] = selecionada.GetAntecessor();
+                    int distanciaVSelecionada = resultados[0, selecionada.GetAntecessor() - 1];
+                    resultados[0, selecionada.GetSucessor() - 1] = selecionada.GetPeso() + distanciaVSelecionada;
+                } 
             }
-
             return resultados[0, destino - 1];
         }
+
 
         private List<Aresta> DefinirCorteS(List<int> explorados)
         {
@@ -77,6 +89,7 @@ namespace TP_Grafos
             foreach (int vertice in explorados)
             {
                 LinkedList<Aresta> incidentes = armazenamento.GetArestasIncidentes(vertice);
+
                 foreach (Aresta incidente in incidentes)
                 {
                     if (!explorados.Contains(incidente.GetSucessor()))
