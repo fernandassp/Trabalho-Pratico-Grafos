@@ -8,36 +8,39 @@ namespace TP_Grafos
 {
     internal class ListaAdjacencia : IArmazenamento //esparso
     {
-        List<PseudoVertice> _lista;
+        List<Vertice> _lista;
 
         public ListaAdjacencia(StreamReader arq) {
+            _lista = new List<Vertice>();
             CriarLista(arq);
         }
         private void CriarLista(StreamReader arq)
         {
-            int numVertices, numArestas;
             string linha = arq.ReadLine();
             string[] valores = linha.Split(' ');
             for (int i = 0; i < int.Parse(valores[0]); i++)
             {
-                _lista.Add(new PseudoVertice(i+1));
+                _lista.Add(new Vertice(i+1));
             }
+            linha = arq.ReadLine();
             while (linha != null)
             {
-                _lista[int.Parse(valores[0])].AddAresta(new PseudoAresta(int.Parse(valores[0]), int.Parse(valores[1]), int.Parse(valores[2]), int.Parse(valores[3])));
+                valores = linha.Split(" ");
+                Aresta novaAresta = new Aresta(int.Parse(valores[0]), int.Parse(valores[1]), int.Parse(valores[2]), int.Parse(valores[3]));
+                _lista.ElementAt(int.Parse(valores[0]) - 1).AddAresta(novaAresta);
                 linha = arq.ReadLine();
             }
         }
         public void AdicionarVertice()
         {
-            _lista.Add(new PseudoVertice(_lista.Count));
+            _lista.Add(new Vertice(_lista.Count));
         }
         public void AdicionarAresta(int vertA, int vertB, int peso, int capacidade)
         {
-            _lista[vertA].AddAresta(new PseudoAresta(vertA,vertB,peso,capacidade)); 
+            _lista[vertA].AddAresta(new Aresta(vertA,vertB,peso,capacidade)); 
         }
         public int GetPeso(int vertA, int vertB) {
-            foreach (PseudoAresta a in _lista[vertA-1].GetArestas())
+            foreach (Aresta a in _lista[vertA-1].GetArestas())
             {
                 if (_lista[a.GetSucessor()].GetNumero()-1==vertB) { 
                     return a.GetPeso();
@@ -46,7 +49,7 @@ namespace TP_Grafos
             return -1;
         }
         public int GetCapacidade(int vertA, int vertB) {
-            foreach (PseudoAresta a in _lista[vertA - 1].GetArestas())
+            foreach (Aresta a in _lista[vertA - 1].GetArestas())
             {
                 if (_lista[a.GetSucessor()].GetNumero() - 1 == vertB)
                 {
@@ -61,11 +64,11 @@ namespace TP_Grafos
             return _lista.Count;
         }
 
-        public List<PseudoAresta> GetArestas()
+        public List<Aresta> GetArestas()
         {
-            List<PseudoAresta> arestas = new List<PseudoAresta>();
-            foreach (PseudoVertice v in _lista) {
-                foreach (PseudoAresta a in v.GetArestas()) 
+            List<Aresta> arestas = new List<Aresta>();
+            foreach (Vertice v in _lista) {
+                foreach (Aresta a in v.GetArestas()) 
                 {
                     arestas.Add(a);
                 }
@@ -73,15 +76,15 @@ namespace TP_Grafos
             return arestas;
         }
 
-        public LinkedList<PseudoAresta> GetArestasIncidentes(int numVertice)
+        public LinkedList<Aresta> GetArestasIncidentes(int numVertice)
         {
             return _lista[numVertice - 1].GetArestas();
         }
         public void Mostarlista() { 
-            foreach (PseudoVertice v in _lista)
+            foreach (Vertice v in _lista)
             {
                 Console.Write(v.GetNumero()+": ");
-                foreach(PseudoAresta a in v.GetArestas())
+                foreach(Aresta a in v.GetArestas())
                 {
                     Console.Write(a.GetSucessor()+", ");
                 }

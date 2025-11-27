@@ -9,47 +9,15 @@
             Console.WriteLine("1- Roteamento de menor custo\n2- Capacidade Máxima de Escoamento\n3- Expansão da Rede de Comunicação\n4- Agendamento de Manutenções sem Conflito\n5- Rota Única de Inspeção\n6- Sair");
         }
 
-        /*
-        static GrafoDirecionado LerDadosGrafo(StreamReader arq) 
-        {
-            GrafoDirecionado grafo = new GrafoDirecionado();
-            int numVertices, numArestas; string linha = arq.ReadLine();
-            string[] valores = linha.Split(' ');
-            numVertices = int.Parse(valores[0]);
-
-            for(int i = 1; i<=numVertices; i++)
-            {
-                grafo.AdicionarVertice(new Vertice(i));
-            }
-            numArestas = int.Parse(valores[1]);
-            linha = arq.ReadLine();
-            for(int i = 0; i<numArestas; i++)
-            {
-                valores = linha.Split(" ");
-
-                // 0: origem (v), 1: destino (w), 2: peso; 3: capacidade
-
-                int origem = int.Parse(valores[0]);
-                int destino = int.Parse(valores[1]);
-                Aresta aresta = new Aresta(grafo.VerticeDeNumero(origem), grafo.VerticeDeNumero(destino));
-                aresta.DefinirPeso(int.Parse(valores[2]));
-                aresta.DefinirCapacidade(int.Parse(valores[3]));
-                grafo.AdicionarAresta(aresta);
-
-                linha = arq.ReadLine();
-
-            }
-
-            return grafo;
-        }
-        */
-
-
         static void Main(string[] args)
         {
             //criar a estrutura de dados que armazena a rede
             StreamReader grafo01 = new StreamReader("grafo01.txt", false);
-            
+            ListaAdjacencia lista = new ListaAdjacencia(grafo01);
+            lista.Mostarlista();
+
+            /*
+
             //GrafoDirecionado rede = LerDadosGrafo(grafo01);
 
             int opc;
@@ -94,6 +62,7 @@
 
             } while (opc != 6); 
           
+            */
         }
     }
 }

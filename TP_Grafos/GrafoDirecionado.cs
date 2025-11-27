@@ -19,76 +19,15 @@ namespace TP_Grafos
             armazenamento.AdicionarAresta(vertA, vertB, peso, capacidade);
         }
 
-        /*public Vertice VerticeDeNumero(int num)
-        {
-            foreach(Vertice vertice in _vertices)
-            {
-                if(vertice.GetNumero() == num) return vertice;
-            }
-            return null;
-        }
-        */
-
         public int GetQuantVertices()
         {
             return armazenamento.GetQuantVertices();
         }
 
-        public List<PseudoAresta> GetArestas()
+        public List<Aresta> GetArestas()
         {
             return armazenamento.GetArestas();
         }
-
-        /*
-        private bool ExisteNoGrafo(Vertice v)
-        {
-            if (_vertices.Contains(v)) //n sei se isso funciona mesmo
-            {
-                return true;
-            }
-            return false;
-        }*/
-
-        /*
-        public int BellmanFordEntre(Vertice origem, Vertice destino)
-        {
-            if(!ExisteNoGrafo(origem) || !ExisteNoGrafo(destino))
-            {
-                throw new ArgumentException("Os vértices de origem e destino informados não fazem parte do grafo.");
-            }
-
-            for (int i = 0; i < GetVertices().Count; i++)
-            {
-                GetVertices().ElementAt(i).SetDistancia(int.MaxValue);
-                GetVertices().ElementAt(i).SetPredecessor(null);
-            }
-            Vertice raiz = origem;
-            raiz.SetDistancia(0);
-
-            for (int i = 1; i <= GetVertices().Count - 1; i++)
-            {
-                bool altera = false;
-                foreach (Aresta aresta in GetArestas())
-                {
-                    int distV = aresta.GetV().GetDistancia();
-                    int peso = aresta.GetPeso();
-
-                    if (distV != int.MaxValue && aresta.GetW().GetDistancia() > distV + peso) // evitar erro do int.MaxValue
-                    {
-                        aresta.GetW().SetDistancia(distV + peso);
-                        aresta.GetW().SetPredecessor(aresta.GetV());
-                        altera = true;
-                    }
-                }
-                if (altera == false)
-                {
-                    i = GetVertices().Count;
-                }
-            }
-
-            return destino.GetDistancia(); // ?? tem que testar
-        }
-        */
 
         public int DijkstraEntre(int origem, int destino)
         {
@@ -107,12 +46,12 @@ namespace TP_Grafos
 
             for (int i = 0; i < GetQuantVertices(); i++)
             {
-                List<PseudoAresta> corteS = DefinirCorteS(explorados); //att corte
+                List<Aresta> corteS = DefinirCorteS(explorados); //att corte
 
                 int menorDist = int.MaxValue;
-                PseudoAresta selecionada = corteS.ElementAt(0);
+                Aresta selecionada = corteS.ElementAt(0);
 
-                foreach (PseudoAresta a in corteS)
+                foreach (Aresta a in corteS)
                 {
                     int distV = resultados[0, a.GetAntecessor() - 1];
                     if (distV != int.MaxValue && a.GetPeso() + distV < menorDist)
@@ -131,14 +70,14 @@ namespace TP_Grafos
             return resultados[0, destino - 1];
         }
 
-        private List<PseudoAresta> DefinirCorteS(List<int> explorados)
+        private List<Aresta> DefinirCorteS(List<int> explorados)
         {
-            List<PseudoAresta> corteS = new List<PseudoAresta>();
+            List<Aresta> corteS = new List<Aresta>();
 
             foreach (int vertice in explorados)
             {
-                LinkedList<PseudoAresta> incidentes = armazenamento.GetArestasIncidentes(vertice);
-                foreach (PseudoAresta incidente in incidentes)
+                LinkedList<Aresta> incidentes = armazenamento.GetArestasIncidentes(vertice);
+                foreach (Aresta incidente in incidentes)
                 {
                     if (!explorados.Contains(incidente.GetSucessor()))
                     {

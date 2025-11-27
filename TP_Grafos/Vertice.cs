@@ -8,38 +8,17 @@ namespace TP_Grafos
 {
     internal class Vertice
     {
-        int _numero; // ex.: vertice 1, vertice 2...
-        int _id; // caso precise
-        static int _proxId = 1;
+        private LinkedList<Aresta> _arestas;
+        private int _numero;
 
-        int _distancia;     //bellmanford
-        Vertice _predecessor; //bellmanford
-
-        public Vertice(int num)
-        {
-            _id = _proxId;
-            _proxId++;
-            _numero = num;
+        public Vertice(int numero) { 
+            _arestas = new LinkedList<Aresta>();
+            _numero = numero;
         }
-
-        public int GetNumero()
-        {
-            return _numero;
+        public void AddAresta(Aresta p) { 
+            _arestas.AddLast(p);
         }
-
-        public void SetDistancia(int distancia)
-        {
-            _distancia = distancia;
-        }
-        public int GetDistancia()
-        {
-            return _distancia;
-        }
-
-        public void SetPredecessor(Vertice predecessor)
-        {
-            _predecessor = predecessor;
-        }
-      
+        public int GetNumero() { return _numero; }
+        public LinkedList<Aresta> GetArestas() { return _arestas; }
     }
 }

@@ -8,39 +8,22 @@ namespace TP_Grafos
 {
     internal class Aresta
     {
-        int _v;
-        int _w;
-        int _peso; // é sempre inteiro?
-        int _capacidade; // é sempre inteiro?
+        int _sucessor;
+        int _antecessor;
+        int _peso;
+        int _capacidade;
 
-        public Aresta(int origem, int destino)
+        public Aresta(int antecessor, int sucessor, int peso, int capacidade)
         {
-            _v = origem; _w = destino;
-        }
-        public int GetV()
-        {
-            return _v;
-        }
-        public int GetW()
-        {
-            return _w;
-        }
-        public int GetCapacidade()
-        {
-            return _capacidade;
-        }
-        public int GetPeso()
-        {
-            return _peso;
-        }
-
-        public void DefinirPeso(int peso)
-        {
+            _antecessor = antecessor;
+            _sucessor = sucessor;
             _peso = peso;
-        }
-        public void DefinirCapacidade(int capacidade)
-        {
             _capacidade = capacidade;
         }
+        public int GetSucessor() { return _sucessor; }
+
+        public int GetAntecessor() { return _antecessor; }
+        public int GetPeso() { return _peso; }
+        public int GetCapacidade() { return _capacidade; }
     }
 }
