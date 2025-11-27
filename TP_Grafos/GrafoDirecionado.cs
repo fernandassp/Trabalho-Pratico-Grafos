@@ -36,8 +36,8 @@ namespace TP_Grafos
         public int DijkstraEntre(int origem, int destino)
         {
             int[,] resultados = new int[2, GetQuantVertices()]; // [0,i]: dist; [1,i]: pred
-            // -1 para null, int max value para infinito
-
+            // -1 pra null e int.MaxValue infinito
+            
             for (int i = 0; i < resultados.GetLength(1); i++)
             {
                 resultados[1, i] = -1;           // predecessor
@@ -48,36 +48,40 @@ namespace TP_Grafos
             List<int> explorados = new List<int>();
             explorados.Add(origem);
 
-            
             while (explorados.Count < GetQuantVertices())
             {
                 List<Aresta> corteS = DefinirCorteS(explorados);
 
                 //corte vazio = não há mais caminhos possíveis
-                if (corteS.Count != 0)
+                if (corteS.Count == 0) 
                 {
-                    int menorDist = int.MaxValue;
-                    Aresta selecionada = corteS.ElementAt(0);
+                    // mudar isso aqui
+                    
+                }
 
-                    foreach (Aresta a in corteS)
+                int menorDist = int.MaxValue;
+                Aresta selecionada = corteS[0];
+
+                foreach (Aresta a in corteS)
+                {
+                    int distV = resultados[0, a.GetAntecessor() - 1];
+
+                    if (distV != int.MaxValue && a.GetPeso() + distV < menorDist)
                     {
-                        int distV = resultados[0, a.GetAntecessor() - 1];
-
-                        if (distV != int.MaxValue && a.GetPeso() + distV < menorDist)
-                        {
-                            menorDist = a.GetPeso() + distV;
-                            selecionada = a;
-                        }
+                        menorDist = a.GetPeso() + distV;
+                        selecionada = a;
                     }
+                }
 
-                    // impedir adicionar o mesmo vértice duas vezes
-                    if (!explorados.Contains(selecionada.GetSucessor()))
-                        explorados.Add(selecionada.GetSucessor());
-                    resultados[1, selecionada.GetSucessor() - 1] = selecionada.GetAntecessor();
-                    int distanciaVSelecionada = resultados[0, selecionada.GetAntecessor() - 1];
-                    resultados[0, selecionada.GetSucessor() - 1] = selecionada.GetPeso() + distanciaVSelecionada;
-                } 
+                // impedir adicionar o mesmo vértice duas vezes - VER SE PRECISA
+                if (!explorados.Contains(selecionada.GetSucessor()))
+                    explorados.Add(selecionada.GetSucessor());
+
+                resultados[1, selecionada.GetSucessor() - 1] = selecionada.GetAntecessor();
+                int distanciaVSelecionada = resultados[0, selecionada.GetAntecessor() - 1];
+                resultados[0, selecionada.GetSucessor() - 1] = selecionada.GetPeso() + distanciaVSelecionada;
             }
+
             return resultados[0, destino - 1];
         }
 
@@ -101,5 +105,7 @@ namespace TP_Grafos
 
             return corteS;
         }
+
+
     }
 }

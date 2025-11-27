@@ -28,3 +28,18 @@ C:\fe\Puc\4º periodo\Grafos\TP novo clone\Trabalho-Pratico-Grafos\TP_Grafos\obj
 C:\fe\Puc\4º periodo\Grafos\TP novo clone\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.pdb
 C:\fe\Puc\4º periodo\Grafos\TP novo clone\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.genruntimeconfig.cache
 C:\fe\Puc\4º periodo\Grafos\TP novo clone\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\ref\TP_Grafos.dll
+C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.GeneratedMSBuildEditorConfig.editorconfig
+C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.AssemblyInfoInputs.cache
+C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.AssemblyInfo.cs
+C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.csproj.CoreCompileInputs.cache
+C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.sourcelink.json
+C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.dll
+C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\refint\TP_Grafos.dll
+C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.pdb
+C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\bin\Debug\net8.0\TP_Grafos.exe
+C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\bin\Debug\net8.0\TP_Grafos.deps.json
+C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\bin\Debug\net8.0\TP_Grafos.runtimeconfig.json
+C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\bin\Debug\net8.0\TP_Grafos.dll
+C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\bin\Debug\net8.0\TP_Grafos.pdb
+C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.genruntimeconfig.cache
+C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\ref\TP_Grafos.dll

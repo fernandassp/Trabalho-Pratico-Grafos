@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\fe\\Puc\\4º periodo\\Grafos\\TP novo clone\\Trabalho-Pratico-Grafos\\TP_Grafos\\TP_Grafos.csproj": {}
+    "C:\\fe\\Puc\\4º periodo\\Grafos\\TP novo clone 2\\Trabalho-Pratico-Grafos\\TP_Grafos\\TP_Grafos.csproj": {}
   },
   "projects": {
-    "C:\\fe\\Puc\\4º periodo\\Grafos\\TP novo clone\\Trabalho-Pratico-Grafos\\TP_Grafos\\TP_Grafos.csproj": {
+    "C:\\fe\\Puc\\4º periodo\\Grafos\\TP novo clone 2\\Trabalho-Pratico-Grafos\\TP_Grafos\\TP_Grafos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\fe\\Puc\\4º periodo\\Grafos\\TP novo clone\\Trabalho-Pratico-Grafos\\TP_Grafos\\TP_Grafos.csproj",
+        "projectUniqueName": "C:\\fe\\Puc\\4º periodo\\Grafos\\TP novo clone 2\\Trabalho-Pratico-Grafos\\TP_Grafos\\TP_Grafos.csproj",
         "projectName": "TP_Grafos",
-        "projectPath": "C:\\fe\\Puc\\4º periodo\\Grafos\\TP novo clone\\Trabalho-Pratico-Grafos\\TP_Grafos\\TP_Grafos.csproj",
+        "projectPath": "C:\\fe\\Puc\\4º periodo\\Grafos\\TP novo clone 2\\Trabalho-Pratico-Grafos\\TP_Grafos\\TP_Grafos.csproj",
         "packagesPath": "C:\\Users\\Fernanda\\.nuget\\packages\\",
-        "outputPath": "C:\\fe\\Puc\\4º periodo\\Grafos\\TP novo clone\\Trabalho-Pratico-Grafos\\TP_Grafos\\obj\\",
+        "outputPath": "C:\\fe\\Puc\\4º periodo\\Grafos\\TP novo clone 2\\Trabalho-Pratico-Grafos\\TP_Grafos\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
