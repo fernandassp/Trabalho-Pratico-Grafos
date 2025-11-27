@@ -43,3 +43,18 @@ C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\b
 C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\bin\Debug\net8.0\TP_Grafos.pdb
 C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.genruntimeconfig.cache
 C:\fe\Puc\4º periodo\Grafos\TP novo clone 2\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\ref\TP_Grafos.dll
+C:\Users\migol\OneDrive\Área de Trabalho\estudo\semestre4\TP\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\TP_Grafos\bin\Debug\net8.0\TP_Grafos.exe
+C:\Users\migol\OneDrive\Área de Trabalho\estudo\semestre4\TP\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\TP_Grafos\bin\Debug\net8.0\TP_Grafos.deps.json
+C:\Users\migol\OneDrive\Área de Trabalho\estudo\semestre4\TP\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\TP_Grafos\bin\Debug\net8.0\TP_Grafos.runtimeconfig.json
+C:\Users\migol\OneDrive\Área de Trabalho\estudo\semestre4\TP\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\TP_Grafos\bin\Debug\net8.0\TP_Grafos.dll
+C:\Users\migol\OneDrive\Área de Trabalho\estudo\semestre4\TP\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\TP_Grafos\bin\Debug\net8.0\TP_Grafos.pdb
+C:\Users\migol\OneDrive\Área de Trabalho\estudo\semestre4\TP\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\migol\OneDrive\Área de Trabalho\estudo\semestre4\TP\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.AssemblyInfoInputs.cache
+C:\Users\migol\OneDrive\Área de Trabalho\estudo\semestre4\TP\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.AssemblyInfo.cs
+C:\Users\migol\OneDrive\Área de Trabalho\estudo\semestre4\TP\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.csproj.CoreCompileInputs.cache
+C:\Users\migol\OneDrive\Área de Trabalho\estudo\semestre4\TP\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.sourcelink.json
+C:\Users\migol\OneDrive\Área de Trabalho\estudo\semestre4\TP\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.dll
+C:\Users\migol\OneDrive\Área de Trabalho\estudo\semestre4\TP\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\refint\TP_Grafos.dll
+C:\Users\migol\OneDrive\Área de Trabalho\estudo\semestre4\TP\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.pdb
+C:\Users\migol\OneDrive\Área de Trabalho\estudo\semestre4\TP\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\TP_Grafos.genruntimeconfig.cache
+C:\Users\migol\OneDrive\Área de Trabalho\estudo\semestre4\TP\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\Trabalho-Pratico-Grafos\TP_Grafos\obj\Debug\net8.0\ref\TP_Grafos.dll

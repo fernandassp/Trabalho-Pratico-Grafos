@@ -25,5 +25,10 @@ namespace TP_Grafos
         public int GetAntecessor() { return _antecessor; }
         public int GetPeso() { return _peso; }
         public int GetCapacidade() { return _capacidade; }
+
+        public override string ToString()
+        {
+            return $"v:{_sucessor}, w:{_antecessor}, peso:{_peso}, capacidade:{_capacidade}";
+        }
     }
 }

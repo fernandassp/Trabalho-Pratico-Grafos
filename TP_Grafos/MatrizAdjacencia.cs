@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace TP_Grafos
 {
-    /*
     internal class MatrizAdjacencia : IArmazenamento //denso
     {
 
-        private string[,] _matriz;
+        private Aresta[,] _matriz;
 
         public MatrizAdjacencia(StreamReader arq) {
             CriarMatriz(arq);
@@ -21,32 +20,31 @@ namespace TP_Grafos
             string linha = arq.ReadLine();
             string[] valores = linha.Split(' ');
             numVertices = int.Parse(valores[0]);
-            _matriz = new string[numVertices,numVertices];
+            _matriz = new Aresta[numVertices,numVertices];
+            linha = arq.ReadLine();
             while (linha!=null) {
                 valores=linha.Split(' ');
-                _matriz[int.Parse(valores[0])-1, int.Parse(valores[1])-1] = valores[2]+"-"+valores[3];
-                linha=arq.ReadLine();                    
+                _matriz[int.Parse(valores[0])-1, int.Parse(valores[1])-1] = new Aresta(int.Parse(valores[0]), int.Parse(valores[1]), int.Parse(valores[2]), int.Parse(valores[3]));
+                linha =arq.ReadLine();                    
             }
         }
         public void AdicionarVertice() {
-            string[,] matriz2 = new string[_matriz.Length+1,_matriz.Length+1];
-            for (int i = 0; i < _matriz.Length; i++) {
-                for (int j = 0; j < _matriz.Length; j++) { 
+            Aresta[,] matriz2 = new Aresta[_matriz.GetLength(0) +1,_matriz.GetLength(0) +1];
+            for (int i = 0; i < _matriz.GetLength(0); i++) {
+                for (int j = 0; j < _matriz.GetLength(1); j++) { 
                     matriz2[i,j] = _matriz[i,j];
                 }
             }
             _matriz = matriz2;
         }
         public void AdicionarAresta(int vertA,int vertB,int peso, int capacidade) {
-            _matriz[vertA-1,vertB-1] = peso + "-" + capacidade;
+            _matriz[vertA - 1, vertB - 1] = new Aresta(vertA,vertB,peso,capacidade);
         }
         public int GetPeso(int vertA,int vertB) {
-            string[] div=_matriz[vertA - 1, vertB - 1].Split('-');
-            return int.Parse(div[0]);
+            return _matriz[vertA-1,vertB-1].GetPeso();
         }
         public int GetCapacidade(int vertA,int vertB) {
-            string[] div=_matriz[vertA - 1, vertB - 1].Split('-');
-            return int.Parse(div[1]);
+            return _matriz[vertA - 1, vertB - 1].GetCapacidade();
         }
 
         
@@ -59,11 +57,7 @@ namespace TP_Grafos
                 {
                     if (_matriz[i,j] != null)
                     {
-                        Aresta aresta = new Aresta(i , j);
-                        string[] dados = _matriz[i,j].Split("-");
-                        aresta.DefinirPeso(int.Parse(dados[0]));
-                        aresta.DefinirCapacidade(int.Parse(dados[1]));
-                        arestas.Add(aresta);
+                        arestas.Add(_matriz[i,j]);
                     }
                 }
             }
@@ -72,19 +66,21 @@ namespace TP_Grafos
 
         public int GetQuantVertices()
         {
-            return matriz.GetLength(0);
+            return _matriz.GetLength(0);
         }
-        public List<PseudoAresta> GetArestas() { }
-        public List<PseudoVertice> GetArestasIncidentes(int numVertice) {
-            List<PseudoVertice>
-            for (int i = 0; i < matriz.GetLength(0); i++) {
-                if (matriz[numVertice, i] != null)
-                {
-
+        public LinkedList<Aresta> GetArestasIncidentes(int numVertice)
+        {
+            numVertice--;
+            LinkedList<Aresta> arestas= new LinkedList<Aresta>();
+            for (int w = 0; w < _matriz.GetLength(0); w++) {
+                if (_matriz[numVertice,w] != null) {
+                    arestas.AddLast(_matriz[numVertice,w]);
                 }
             }
+            return arestas;
+        }
+        public void MostrarMatriz() {
+            
         }
     }
-    */
-    //
 }

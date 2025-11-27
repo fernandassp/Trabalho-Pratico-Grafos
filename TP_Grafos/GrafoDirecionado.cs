@@ -12,7 +12,8 @@ namespace TP_Grafos
 
         public GrafoDirecionado(StreamReader arq)
         {
-            armazenamento = new ListaAdjacencia(arq);
+            //armazenamento = new ListaAdjacencia(arq);
+            armazenamento = new MatrizAdjacencia(arq);
         }
         public void AdicionarVertice()
         {
@@ -32,13 +33,32 @@ namespace TP_Grafos
         {
             return armazenamento.GetArestas();
         }
+        private List<Aresta> DefinirCorteS(List<int> explorados)
+        {
+            List<Aresta> corteS = new List<Aresta>();
 
+            foreach (int vertice in explorados)
+            {
+                
+                LinkedList<Aresta> incidentes = armazenamento.GetArestasIncidentes(vertice);
+                foreach (Aresta a in incidentes) {
+                    Console.WriteLine(a);
+                }
+
+                foreach (Aresta incidente in incidentes)
+                {
+                    if (!explorados.Contains(incidente.GetSucessor()))
+                    {
+                        corteS.Add(incidente);
+                    }
+                }
+            }
+            return corteS;
+        }
         public int DijkstraEntre(int origem, int destino)
         {
-            Console.WriteLine("chegou aqui");
+            Console.WriteLine("GetQuantVertices(): " + GetQuantVertices());
             int[,] resultados = new int[2, GetQuantVertices()]; // [0,i]: dist; [1,i]: pred
-            Console.WriteLine("chegou aqui 2");
-
             // inicialização
             for (int i = 0; i < resultados.GetLength(1); i++)
             {
@@ -88,28 +108,5 @@ namespace TP_Grafos
 
             return resultados[0, destino - 1];
         }
-
-
-        private List<Aresta> DefinirCorteS(List<int> explorados)
-        {
-            List<Aresta> corteS = new List<Aresta>();
-
-            foreach (int vertice in explorados)
-            {
-                LinkedList<Aresta> incidentes = armazenamento.GetArestasIncidentes(vertice);
-
-                foreach (Aresta incidente in incidentes)
-                {
-                    if (!explorados.Contains(incidente.GetSucessor()))
-                    {
-                        corteS.Add(incidente);
-                    }
-                }
-            }
-
-            return corteS;
-        }
-
-
     }
 }
