@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TP_Grafos
 {
-    internal class ListaAdjacencia : IArmazenamento //esparço
+    internal class ListaAdjacencia : IArmazenamento //esparso
     {
         List<PseudoVertice> _lista;
 
