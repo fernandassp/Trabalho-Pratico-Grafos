@@ -49,7 +49,8 @@
         {
             //criar a estrutura de dados que armazena a rede
             StreamReader grafo01 = new StreamReader("grafo01.txt", false);
-            GrafoDirecionado rede = LerDadosGrafo(grafo01);
+            
+            //GrafoDirecionado rede = LerDadosGrafo(grafo01);
 
             int opc;
 
@@ -64,7 +65,6 @@
                 switch (opc)
                 {
                     case 1:
-                        // hubs vão ser ints, representando o número dos vértices? 
                         int origem, destino;
                         Console.WriteLine("Informe o hub de origem: ");
                         origem = int.Parse(Console.ReadLine());
@@ -72,7 +72,7 @@
                         destino = int.Parse(Console.ReadLine());
 
                         
-                        int distancia = rede.BellmanFordEntre(rede.VerticeDeNumero(origem), rede.VerticeDeNumero(destino));
+                        int distancia = 0000; // alterar
                         Console.WriteLine($"A distância entre os hubs {origem} e {destino} é: {distancia}.");
                         
                         break;

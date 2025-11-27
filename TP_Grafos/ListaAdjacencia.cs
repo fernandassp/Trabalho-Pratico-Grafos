@@ -34,6 +34,9 @@ namespace TP_Grafos
         public int GetCapacidade(int vertA, int vertB);
         public List<Aresta> GetArestas();
 
-        public int GetQuantVertices();
+        public int GetQuantVertices()
+        {
+            return lista.Count;
+        }
     }
 }

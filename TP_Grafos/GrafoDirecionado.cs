@@ -49,6 +49,7 @@ namespace TP_Grafos
             return false;
         }*/
 
+        /*
         public int BellmanFordEntre(Vertice origem, Vertice destino)
         {
             if(!ExisteNoGrafo(origem) || !ExisteNoGrafo(destino))
@@ -86,6 +87,12 @@ namespace TP_Grafos
             }
 
             return destino.GetDistancia(); // ?? tem que testar
+        }
+        */
+
+        public int DijkstraEntre(int origem, int destino)
+        {
+
         }
     }
 }
