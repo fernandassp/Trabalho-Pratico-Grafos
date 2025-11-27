@@ -29,12 +29,12 @@ namespace TP_Grafos
         }
         */
 
-        /*public List<Vertice> GetVertices()
+        public int GetQuantVertices()
         {
-            return armazenamento.GetVertices();
-        }*/
+            return armazenamento.GetQuantVertices();
+        }
 
-        public List<Aresta> GetArestas()
+        public List<PseudoAresta> GetArestas()
         {
             return armazenamento.GetArestas();
         }
@@ -92,7 +92,40 @@ namespace TP_Grafos
 
         public int DijkstraEntre(int origem, int destino)
         {
+            int[,] resultados = new int[2, GetQuantVertices()]; // [0,0]: dist vertice 1; [1,0]: pred. vertice 1
+            // -1 para null, int max value para infinito
 
+            for(int i = 0; i< resultados.GetLength(1); i++)
+            {
+                resultados[1, i] = -1; // definir predecessores como "null"
+                resultados[0, i] = int.MaxValue; //distancias: infinito
+            }
+            resultados[0, origem - 1] = 0; // dist raiz = 0
+                                           
+            List<int> explorados = new List<int>();
+            explorados.Add(origem);
+
+            for(int i = 0; i<GetQuantVertices(); i++)
+            {
+                List<Aresta> corteS = DefinirCorteS(explorados);
+            }
+
+        }
+
+        private List<Aresta> DefinirCorteS(List<int> explorados)
+        {
+            List<Aresta> corteS = new List<Aresta>();
+
+            foreach (int vertice in explorados)
+            {
+                List<PseudoVertice> vizinhos = armazenamento.GetVizinhos(vertice);
+                foreach (PseudoVertice vizinho in vizinhos)
+                {
+
+                }
+            }
+
+            return corteS;
         }
     }
 }

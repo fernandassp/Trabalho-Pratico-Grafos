@@ -12,8 +12,10 @@ namespace TP_Grafos
         public void AdicionarAresta(int vertA, int vertB, int peso, int capacidade);
         public int GetPeso(int vertA, int vertB); 
         public int GetCapacidade(int vertA, int vertB);
-        public List<Aresta> GetArestas();
+        public List<PseudoAresta> GetArestas();
 
         public int GetQuantVertices();
+
+        public List<PseudoVertice> GetVizinhos(int numVertice);
     }
 }
