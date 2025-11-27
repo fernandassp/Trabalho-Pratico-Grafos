@@ -35,32 +35,35 @@ namespace TP_Grafos
 
         public int DijkstraEntre(int origem, int destino)
         {
+            Console.WriteLine("chegou aqui");
             int[,] resultados = new int[2, GetQuantVertices()]; // [0,i]: dist; [1,i]: pred
-            // -1 pra null e int.MaxValue infinito
-            
+            Console.WriteLine("chegou aqui 2");
+
+            // inicialização
             for (int i = 0; i < resultados.GetLength(1); i++)
             {
                 resultados[1, i] = -1;           // predecessor
                 resultados[0, i] = int.MaxValue; // distância
             }
-            resultados[0, origem - 1] = 0; // raiz
+            resultados[0, origem - 1] = 0;
 
             List<int> explorados = new List<int>();
             explorados.Add(origem);
 
+            // ALTERAÇÃO IMPORTANTE: usar "while", não "for"
             while (explorados.Count < GetQuantVertices())
             {
                 List<Aresta> corteS = DefinirCorteS(explorados);
 
-                //corte vazio = não há mais caminhos possíveis
-                if (corteS.Count == 0) 
+                // CORREÇÃO DO ERRO: corte vazio = não há mais caminhos possíveis
+                if (corteS.Count == 0)
                 {
-                    // mudar isso aqui
-                    
+                    // Não há como continuar — o destino pode ser inalcançável
+                    break;
                 }
 
                 int menorDist = int.MaxValue;
-                Aresta selecionada = corteS[0];
+                Aresta selecionada = corteS[0];  // seguro, porque CorteS não está vazio
 
                 foreach (Aresta a in corteS)
                 {
@@ -73,11 +76,12 @@ namespace TP_Grafos
                     }
                 }
 
-                // impedir adicionar o mesmo vértice duas vezes - VER SE PRECISA
+                // impedir adicionar o mesmo vértice duas vezes
                 if (!explorados.Contains(selecionada.GetSucessor()))
                     explorados.Add(selecionada.GetSucessor());
 
                 resultados[1, selecionada.GetSucessor() - 1] = selecionada.GetAntecessor();
+
                 int distanciaVSelecionada = resultados[0, selecionada.GetAntecessor() - 1];
                 resultados[0, selecionada.GetSucessor() - 1] = selecionada.GetPeso() + distanciaVSelecionada;
             }
