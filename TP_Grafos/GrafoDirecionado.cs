@@ -115,19 +115,19 @@ namespace TP_Grafos
             for (int i = 0; i <= n; i++) adj[i] = new List<ArestaResidual>();
 
             // constroi a rede residual G’(f)
-            foreach (var aresta in GetArestas())
+            foreach (Aresta aresta in GetArestas())
             {
                 int w = aresta.GetAntecessor();
                 int v = aresta.GetSucessor();
                 int cap = aresta.GetCapacidade();
 
                 // adiciona aresta direta (w -> v) 
-                ArestaResidual a = new ArestaResidual(v, cap, 0, adj[v].Count);
+                ArestaResidual direta = new ArestaResidual(v, cap, 0, adj[v].Count);
                 // adiciona aresta reversa (v -> w) 
-                ArestaResidual b = new ArestaResidual(w, 0, 0, adj[w].Count);
+                ArestaResidual reversa = new ArestaResidual(w, 0, 0, adj[w].Count);
 
-                adj[w].Add(a);
-                adj[v].Add(b);
+                adj[w].Add(direta);
+                adj[v].Add(reversa);
             }
 
             int fluxoMaximo = 0;
@@ -139,13 +139,11 @@ namespace TP_Grafos
                 // array q controla a próxima aresta a ser visitada
                 int[] prox = new int[n + 1];
 
+                int fluxoBloqueio;
+
                 // determina um fluxo de bloqueio fb em GL
-                while (true)
+                while ((fluxoBloqueio = BuscaProfundidadeDinic(s, t, int.MaxValue, adj, nivel, prox)) != 0)
                 {
-                    int fluxoBloqueio = BuscaProfundidadeDinic(s, t, int.MaxValue, adj, nivel, prox);
-
-                    if (fluxoBloqueio == 0) break;
-
                     fluxoMaximo += fluxoBloqueio; // atualiza o fluxo
                 }
             }
@@ -164,7 +162,7 @@ namespace TP_Grafos
             while (fila.Count > 0)
             {
                 int u = fila.Dequeue();
-                foreach (var aresta in adj[u])
+                foreach (ArestaResidual aresta in adj[u])
                 {
                     // verifica se há capacidade residual e se o vértice ainda não foi nivelado
                     if (aresta.GetCapacidade() - aresta.GetFluxo() > 0 && nivel[aresta.GetPara()] == -1)
@@ -183,27 +181,29 @@ namespace TP_Grafos
         {
             if (fluxoEmpurrado == 0 || u == t) return fluxoEmpurrado;
 
-                for (; prox[u] < adj[u].Count; prox[u]++)
+            for (; prox[u] < adj[u].Count; prox[u]++)
+            {
+                ArestaResidual aresta = adj[u][prox[u]];
+                int para = aresta.GetPara();
+                int capResidual = aresta.GetCapacidade() - aresta.GetFluxo();
+
+                // verifica se o vértice é válido
+                if (nivel[u] + 1 == nivel[para] && capResidual > 0)
                 {
-                    ArestaResidual aresta = adj[u][prox[u]];
-                    int para = aresta.GetPara();
-                    int capResidual = aresta.GetCapacidade() - aresta.GetFluxo();
-
-                    // só avança se o vértice for do próximo nível e houver capacidade residual
-                    if (nivel[u] + 1 != nivel[para] || capResidual == 0) continue;
-
                     int delta = BuscaProfundidadeDinic(para, t, Math.Min(fluxoEmpurrado, capResidual), adj, nivel, prox);
 
-                    if (delta == 0) continue;
+                    // se encontrou fluxo, atualiza e retorna
+                    if (delta > 0)
+                    {
+                        aresta.SetFluxo(aresta.GetFluxo() + delta);
 
-                    aresta.SetFluxo(aresta.GetFluxo() + delta);
+                        ArestaResidual arestaReversa = adj[para][aresta.GetReverso()];
+                        arestaReversa.SetFluxo(arestaReversa.GetFluxo() - delta);
 
-                    // atualiza fluxos na aresta e na reversa
-                    ArestaResidual arestaReversa = adj[para][aresta.GetReverso()];
-                    arestaReversa.SetFluxo(arestaReversa.GetFluxo() - delta);
-
-                    return delta;
+                        return delta;
+                    }
                 }
+            }
             return 0;
         }
 
