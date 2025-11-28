@@ -10,6 +10,7 @@ namespace TP_Grafos
     {
 
         private Aresta[,] _matriz;
+        private int _quantArestas;
 
         public MatrizAdjacencia(StreamReader arq)
         {
@@ -22,6 +23,7 @@ namespace TP_Grafos
             string linha = arq.ReadLine();
             string[] valores = linha.Split(' ');
             numVertices = int.Parse(valores[0]);
+            _quantArestas = int.Parse(valores[1]);
             _matriz = new Aresta[numVertices, numVertices];
             linha = arq.ReadLine();
             while (linha != null)
@@ -39,12 +41,13 @@ namespace TP_Grafos
         private void Traduzir(int quantVerts, List<Aresta> arestas)
         {
             _matriz = new Aresta[quantVerts, quantVerts];
+            _quantArestas = quantVerts;
             foreach (Aresta a in arestas)
             {
                 _matriz[a.GetAntecessor() - 1, a.GetAntecessor() - 1] = a;
             }
         }
-        public void AdicionarVertice()
+        public void AddVertice()
         {
             Aresta[,] matriz2 = new Aresta[_matriz.GetLength(0) + 1, _matriz.GetLength(0) + 1];
             for (int i = 0; i < _matriz.GetLength(0); i++)
@@ -56,9 +59,10 @@ namespace TP_Grafos
             }
             _matriz = matriz2;
         }
-        public void AdicionarAresta(int vertA, int vertB, int peso, int capacidade)
+        public void AddAresta(int vertA, int vertB, int peso, int capacidade)
         {
             _matriz[vertA - 1, vertB - 1] = new Aresta(vertA, vertB, peso, capacidade);
+            _quantArestas++;
         }
         public int GetPeso(int vertA, int vertB)
         {
@@ -92,18 +96,7 @@ namespace TP_Grafos
         }
         public int GetQuantArestas()
         {
-            int quant = 0;
-            for (int i = 0; i < _matriz.GetLength(0); i++)
-            {
-                for (int j = 0; j < _matriz.GetLength(1); j++)
-                {
-                    if (_matriz[i, j] != null)
-                    {
-                        quant++;
-                    }
-                }
-            }
-            return quant;
+            return _quantArestas;
         }
 
         public LinkedList<Aresta> GetArestasIncidentes(int numVertice)

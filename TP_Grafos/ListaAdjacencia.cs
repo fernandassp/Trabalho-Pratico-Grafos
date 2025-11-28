@@ -14,6 +14,10 @@ namespace TP_Grafos
         {
             _lista = new List<Vertice>();
             CriarLista(arq);
+        } 
+        public ListaAdjacencia()
+        {
+            _lista = new List<Vertice>();
         }
         private void CriarLista(StreamReader arq)
         {
@@ -50,11 +54,11 @@ namespace TP_Grafos
                 _lista[a.GetAntecessor() - 1].AddAresta(a);
             }
         }
-        public void AdicionarVertice()
+        public void AddVertice()
         {
             _lista.Add(new Vertice(_lista.Count));
         }
-        public void AdicionarAresta(int vertA, int vertB, int peso, int capacidade)
+        public void AddAresta(int vertA, int vertB, int peso, int capacidade)
         {
             _lista[vertA].AddAresta(new Aresta(vertA, vertB, peso, capacidade));
         }

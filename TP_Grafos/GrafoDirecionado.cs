@@ -8,38 +8,38 @@ namespace TP_Grafos
 {
     internal class GrafoDirecionado
     {
-        IArmazenamento armazenamento;
+        IArmazenamento _armazenamento;
 
         public GrafoDirecionado(StreamReader arq)
         {
-            armazenamento = IArmazenamento.EscolherInicio(arq);
+            _armazenamento = IArmazenamento.EscolherInicio(arq);
         }
         public void DeveMudar()
         {
-            if (IArmazenamento.DeveMudar(armazenamento.GetQuantVertices(), armazenamento.GetQuantArestas(), armazenamento))
+            if (IArmazenamento.DeveMudar(_armazenamento.GetQuantVertices(), _armazenamento.GetQuantArestas(), _armazenamento))
             {
-                armazenamento = IArmazenamento.Mudar(armazenamento, GetQuantVertices(), GetArestas());
+                _armazenamento = IArmazenamento.Mudar(_armazenamento, GetQuantVertices(), GetArestas());
             }
         }
         public void AdicionarVertice()
         {
-            armazenamento.AdicionarVertice();
+            _armazenamento.AddVertice();
             DeveMudar();
         }
         public void AdicionarAresta(int vertA, int vertB, int peso, int capacidade)
         {
-            armazenamento.AdicionarAresta(vertA, vertB, peso, capacidade);
+            _armazenamento.AddAresta(vertA, vertB, peso, capacidade);
             DeveMudar();
         }
 
         public int GetQuantVertices()
         {
-            return armazenamento.GetQuantVertices();
+            return _armazenamento.GetQuantVertices();
         }
 
         public List<Aresta> GetArestas()
         {
-            return armazenamento.GetArestas();
+            return _armazenamento.GetArestas();
         }
         private List<Aresta> DefinirCorteS(List<int> explorados)
         {
@@ -48,7 +48,7 @@ namespace TP_Grafos
             foreach (int vertice in explorados)
             {
 
-                LinkedList<Aresta> incidentes = armazenamento.GetArestasIncidentes(vertice);
+                LinkedList<Aresta> incidentes = _armazenamento.GetArestasIncidentes(vertice);
 
                 foreach (Aresta incidente in incidentes)
                 {
@@ -207,7 +207,32 @@ namespace TP_Grafos
             return 0;
         }
 
-        public Agm Prim()
+        public AgmK AGM_Kruskal()
+        {
+            AgmK agm = new AgmK();
+
+            List<Aresta> ordenadas = new List<Aresta>(_armazenamento.GetArestas().OrderBy(a => a.GetPeso()));
+            agm.AddVertices(GetQuantVertices());
+
+            agm.AddAresta(ordenadas.ElementAt(0));
+
+            int j = 1;
+            int quantArestas = _armazenamento.GetQuantArestas();
+            while (agm.GetArestasT().Count < quantArestas - 1)
+            {
+                Aresta nova = ordenadas.ElementAt(j);
+
+                if (agm.ArestaNaoFazCiclo(nova))
+                {
+                    agm.AddAresta(nova);
+                }
+                j++;
+            }
+
+            return agm;
+        }
+
+        /*public Agm Prim()
         {
 
             Agm agm = new Agm();
@@ -226,9 +251,9 @@ namespace TP_Grafos
 
             return agm;
 
-        }
+        }*/
 
-        private Aresta ArestaMenorPesoPrim(Agm agm)
+        /*private Aresta ArestaMenorPesoPrim(Agm agm)
         {
             int menor = int.MaxValue;
             Aresta menorAresta = GetArestas().ElementAt(0);
@@ -242,6 +267,6 @@ namespace TP_Grafos
             }
 
             return menorAresta;
-        }
+        }*/
     }
 }
