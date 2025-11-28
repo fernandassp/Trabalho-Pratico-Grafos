@@ -23,8 +23,18 @@
         }
         static void Main(string[] args)
         {
-            //criar a estrutura de dados que armazena a rede
             GrafoDirecionado rede1 = CriarRede("grafo01.txt");
+            GrafoDirecionado rede2 = CriarRede("grafo02.txt");
+            GrafoDirecionado rede3 = CriarRede("grafo03.txt");
+            GrafoDirecionado rede4 = CriarRede("grafo04.txt");
+            GrafoDirecionado rede5 = CriarRede("grafo05.txt");
+            GrafoDirecionado rede6 = CriarRede("grafo06.txt");
+            GrafoDirecionado rede7 = CriarRede("grafo07.txt");
+
+            List<GrafoDirecionado> redes = new List<GrafoDirecionado>(); //lista de grafos
+            redes.Add(rede1); redes.Add(rede2); redes.Add(rede3); redes.Add(rede4); redes.Add(rede5);
+            redes.Add(rede6); redes.Add(rede7);
+            int quantGrafos = redes.Count;
 
             int opc;
 
@@ -39,23 +49,34 @@
                 switch (opc)
                 {
                     case 1:
-                        int origem, destino;
-                        Console.WriteLine("Informe o hub de origem: ");
-                        origem = int.Parse(Console.ReadLine());
-                        Console.WriteLine("Informe o hub de destino: ");
-                        destino = int.Parse(Console.ReadLine());
+                        int i = 1;
+                        foreach (GrafoDirecionado rede in redes)
+                        {
+                            Console.WriteLine($"\n\tGRAFO {i}\n");
+                            int origem, destino;
+                            Console.WriteLine("Informe o hub de origem: ");
+                            origem = int.Parse(Console.ReadLine());
+                            Console.WriteLine("Informe o hub de destino: ");
+                            destino = int.Parse(Console.ReadLine());
 
-
-                        int distancia = rede1.DijkstraEntre(origem, destino);
-                        Console.WriteLine($"A distância entre os hubs {origem} e {destino} é: {distancia}.");
-
+                            int distancia = rede.DijkstraEntre(origem, destino);
+                            Console.WriteLine($"A distância entre os hubs {origem} e {destino} é: {distancia}.");
+                            i++;
+                        }
                         break;
                     case 2:
                         break;
                     case 3:
-                        Console.WriteLine("Possível rota: \n");
-                        Agm agm = rede1.Prim();
-                        agm.Imprimir();
+                        int y = 1;
+                        foreach(GrafoDirecionado rede in redes)
+                        {
+                            Console.WriteLine($"\n\tGRAFO {y}\n");
+                            Console.WriteLine("Possível rota: \n");
+                            Agm agm = rede.Prim();
+                            agm.Imprimir();
+                            y++;
+                        }
+                       
                         break;
                     case 4:
                         break;

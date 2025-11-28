@@ -11,6 +11,15 @@ namespace TP_Grafos
         List<Vertice> _vertices;
         List<Aresta> _arestas;
 
+        public int CustoTotal()
+        {
+            int soma = 0;
+            foreach(Aresta aresta in _arestas)
+            {
+                soma += aresta.GetPeso();
+            }
+            return soma;
+        }
         public Agm()
         {
             _vertices = new List<Vertice>();
@@ -51,8 +60,9 @@ namespace TP_Grafos
                 Console.Write($"Rota ({_vertices[i].GetNumero()}, {_vertices[i + 1].GetNumero()}) -> ");
 
             }
-            Console.Write($"Hub {_vertices[_vertices.Count - 1].GetNumero()}");
+            Console.Write($"Hub {_vertices[_vertices.Count - 1].GetNumero()}\n");
 
+            Console.WriteLine("CUSTO TOTAL: " + CustoTotal());
 
             Console.WriteLine();
         }
