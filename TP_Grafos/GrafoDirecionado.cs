@@ -39,7 +39,7 @@ namespace TP_Grafos
 
             foreach (int vertice in explorados)
             {
-                
+
                 LinkedList<Aresta> incidentes = armazenamento.GetArestasIncidentes(vertice);
 
                 foreach (Aresta incidente in incidentes)
@@ -66,43 +66,74 @@ namespace TP_Grafos
             List<int> explorados = new List<int>();
             explorados.Add(origem);
 
-            
+
             for (int i = 0; i < GetQuantVertices(); i++)
             {
                 List<Aresta> corteS = DefinirCorteS(explorados);
 
                 // corte vazio = não há mais caminhos possíveis
-                if (corteS.Count == 0)
+                if (corteS.Count != 0)
                 {
-                    // Não há como continuar — o destino pode ser inalcançável
-                    break;
-                }
+                    int menorDist = int.MaxValue;
+                    Aresta selecionada = corteS.ElementAt(0);
 
-                int menorDist = int.MaxValue;
-                Aresta selecionada = corteS.ElementAt(0);
-
-                foreach (Aresta a in corteS)
-                {
-                    int distV = resultados[0, a.GetAntecessor() - 1];
-
-                    if (distV != int.MaxValue && a.GetPeso() + distV < menorDist)
+                    foreach (Aresta a in corteS)
                     {
-                        menorDist = a.GetPeso() + distV;
-                        selecionada = a;
+                        int distV = resultados[0, a.GetAntecessor() - 1];
+
+                        if (distV != int.MaxValue && a.GetPeso() + distV < menorDist)
+                        {
+                            menorDist = a.GetPeso() + distV;
+                            selecionada = a;
+                        }
                     }
-                }
 
-                // impedir adicionar o mesmo vértice duas vezes - VER SE PRECISA
-               // if (!explorados.Contains(selecionada.GetSucessor()))
                     explorados.Add(selecionada.GetSucessor());
-
-                resultados[1, selecionada.GetSucessor() - 1] = selecionada.GetAntecessor();
-
-                int distanciaVSelecionada = resultados[0, selecionada.GetAntecessor() - 1];
-                resultados[0, selecionada.GetSucessor() - 1] = selecionada.GetPeso() + distanciaVSelecionada;
+                    resultados[1, selecionada.GetSucessor() - 1] = selecionada.GetAntecessor();
+                    int distanciaVSelecionada = resultados[0, selecionada.GetAntecessor() - 1];
+                    resultados[0, selecionada.GetSucessor() - 1] = selecionada.GetPeso() + distanciaVSelecionada;
+                }
             }
 
             return resultados[0, destino - 1];
         }
+
+
+        public Agm Prim()
+        {
+
+            Agm agm = new Agm();
+            Vertice raiz = new Vertice(1);
+            agm.AddVertice(raiz);
+
+            while (agm.QuantVertices() != armazenamento.GetQuantVertices()) 
+            {
+                //encontrar menor aresta v,w em que v ta em v(t) e w nao
+                Aresta menorAresta = ArestaMenorPesoPrim(agm);
+                Vertice novoVertice = new Vertice(menorAresta.GetSucessor());
+                novoVertice.AddAresta(menorAresta);
+                agm.AddVertice(novoVertice);
+                agm.AddAresta(menorAresta);
+            }
+
+            return agm;
+
+        }
+
+        private Aresta ArestaMenorPesoPrim(Agm agm)
+        {
+            int menor = int.MaxValue;
+            Aresta menorAresta = GetArestas().ElementAt(0);
+            foreach (Aresta a in GetArestas())
+            {
+                if (a.GetPeso() < menor && agm.ContemOVertice(a.GetAntecessor()) && !agm.ContemOVertice(a.GetSucessor()))
+                {
+                    menor = a.GetPeso();
+                    menorAresta = a;
+                }
+            }
+
+            return menorAresta;
+        } 
     }
 }

@@ -15,8 +15,8 @@ namespace TP_Grafos
             _arestas = new LinkedList<Aresta>();
             _numero = numero;
         }
-        public void AddAresta(Aresta p) { 
-            _arestas.AddLast(p);
+        public void AddAresta(Aresta a) { 
+            _arestas.AddLast(a);
         }
         public int GetNumero() { return _numero; }
         public LinkedList<Aresta> GetArestas() { return _arestas; }

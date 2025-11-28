@@ -4,9 +4,9 @@
     {
         static void ExibirMenu()
         {
-            Console.WriteLine("\t\t\t--- MÁXIMA LOGÍSTICA S.A. ---\n");
+            Console.WriteLine("\n\t\t\t--- MÁXIMA LOGÍSTICA S.A. ---\n");
             Console.WriteLine("\tDigite o número correspondente à opção desejada:");
-            Console.WriteLine("1- Roteamento de menor custo\n2- Capacidade Máxima de Escoamento\n3- Expansão da Rede de Comunicação\n4- Agendamento de Manutenções sem Conflito\n5- Rota Única de Inspeção\n6- Sair");
+            Console.WriteLine("1- Roteamento de menor custo\n2- Capacidade Máxima de Escoamento\n3- Expansão da Rede de Comunicação\n4- Agendamento de Manutenções sem Conflito\n5- Rota Única de Inspeção\n6- Sair\n");
         }
 
         static void Main(string[] args)
@@ -15,9 +15,6 @@
             StreamReader grafo01 = new StreamReader("grafo01.txt", false);
             GrafoDirecionado rede = new GrafoDirecionado(grafo01);
             
-
-            //GrafoDirecionado rede = LerDadosGrafo(grafo01);
-
             int opc;
 
             // arquivo de logs que sera usado para escrever os resultados depois
@@ -45,6 +42,9 @@
                     case 2:
                         break;
                     case 3:
+                        Console.WriteLine("Possível rota: \n");
+                        Agm agm = rede.Prim();
+                        agm.Imprimir();
                         break;
                     case 4:
                         break;
