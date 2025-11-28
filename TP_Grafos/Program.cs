@@ -9,11 +9,22 @@
             Console.WriteLine("1- Roteamento de menor custo\n2- Capacidade Máxima de Escoamento\n3- Expansão da Rede de Comunicação\n4- Agendamento de Manutenções sem Conflito\n5- Rota Única de Inspeção\n6- Sair\n");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nomeArquivo">Nome do arquivo a ser lido para gerar o grafo.</param>
+        /// <returns></returns>
+        static GrafoDirecionado CriarRede(string nomeArquivo)
+        {
+            StreamReader arq = new StreamReader(nomeArquivo, false);
+            GrafoDirecionado rede = new GrafoDirecionado(arq);
+            arq.Close();
+            return rede;
+        }
         static void Main(string[] args)
         {
             //criar a estrutura de dados que armazena a rede
-            StreamReader grafo01 = new StreamReader("grafo01.txt", false);
-            GrafoDirecionado rede = new GrafoDirecionado(grafo01);
+            GrafoDirecionado rede1 = CriarRede("grafo01.txt");
 
             int opc;
 
@@ -35,7 +46,7 @@
                         destino = int.Parse(Console.ReadLine());
 
 
-                        int distancia = rede.DijkstraEntre(origem, destino);
+                        int distancia = rede1.DijkstraEntre(origem, destino);
                         Console.WriteLine($"A distância entre os hubs {origem} e {destino} é: {distancia}.");
 
                         break;
@@ -43,7 +54,7 @@
                         break;
                     case 3:
                         Console.WriteLine("Possível rota: \n");
-                        Agm agm = rede.Prim();
+                        Agm agm = rede1.Prim();
                         agm.Imprimir();
                         break;
                     case 4:
