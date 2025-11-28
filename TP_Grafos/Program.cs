@@ -81,14 +81,14 @@
                         }
                         break;
                     case 3:
-                        int y = 1;
+                        i = 1;
                         foreach(GrafoDirecionado rede in redes)
                         {
-                            Console.WriteLine($"\n\tGRAFO {y}\n");
+                            Console.WriteLine($"\n\tGRAFO {i}\n");
                             Console.WriteLine("Possível rota: \n");
                             Agm agm = rede.Prim();
                             agm.Imprimir();
-                            y++;
+                            i++;
                         }
                        
                         break;
