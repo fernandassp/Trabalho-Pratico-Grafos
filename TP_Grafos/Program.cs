@@ -65,6 +65,20 @@
                         }
                         break;
                     case 2:
+                        i = 1;
+                        foreach (GrafoDirecionado rede in redes)
+                        {
+                            Console.WriteLine($"\n\tGRAFO {i}\n");
+                            int s, t;
+                            Console.WriteLine("Informe o hub de origem: ");
+                            s = int.Parse(Console.ReadLine());
+                            Console.WriteLine("Informe o hub de destino: ");
+                            t = int.Parse(Console.ReadLine());
+                            i++;
+
+                            int fluxomaximo = rede.DinicEntre(s, t);
+                            Console.WriteLine($"O fluxo máximo entre {s} e {t} é {fluxomaximo}");
+                        }
                         break;
                     case 3:
                         int y = 1;

@@ -106,6 +106,106 @@ namespace TP_Grafos
             return resultados[0, destino - 1];
         }
 
+        public int DinicEntre(int s, int t)
+        {
+
+            int n = GetQuantVertices();
+            // estrutura a rede residual G'(f) e coloca lista de adjacência
+            List<ArestaResidual>[] adj = new List<ArestaResidual>[n + 1];
+            for (int i = 0; i <= n; i++) adj[i] = new List<ArestaResidual>();
+
+            // constroi a rede residual G’(f)
+            foreach (var aresta in GetArestas())
+            {
+                int w = aresta.GetAntecessor();
+                int v = aresta.GetSucessor();
+                int cap = aresta.GetCapacidade();
+
+                // adiciona aresta direta (w -> v) 
+                ArestaResidual a = new ArestaResidual(v, cap, 0, adj[v].Count);
+                // adiciona aresta reversa (v -> w) 
+                ArestaResidual b = new ArestaResidual(w, 0, 0, adj[w].Count);
+
+                adj[w].Add(a);
+                adj[v].Add(b);
+            }
+
+            int fluxoMaximo = 0;
+            int[] nivel = new int[n + 1];
+
+            // constroi a rede em níveis GL a partir de G’(f)
+            while (BuscaLarguraDinic(s, t, adj, nivel))
+            {
+                // array q controla a próxima aresta a ser visitada
+                int[] prox = new int[n + 1];
+
+                // determina um fluxo de bloqueio fb em GL
+                while (true)
+                {
+                    int fluxoBloqueio = BuscaProfundidadeDinic(s, t, int.MaxValue, adj, nivel, prox);
+
+                    if (fluxoBloqueio == 0) break;
+
+                    fluxoMaximo += fluxoBloqueio; // atualiza o fluxo
+                }
+            }
+
+            return fluxoMaximo;
+        }
+
+        // busca em largura 
+        private bool BuscaLarguraDinic(int s, int t, List<ArestaResidual>[] adj, int[] nivel)
+        {
+            Array.Fill(nivel, -1); // marca todos os vértices como não visitados
+            nivel[s] = 0;
+            Queue<int> fila = new Queue<int>();
+            fila.Enqueue(s);
+
+            while (fila.Count > 0)
+            {
+                int u = fila.Dequeue();
+                foreach (var aresta in adj[u])
+                {
+                    // verifica se há capacidade residual e se o vértice ainda não foi nivelado
+                    if (aresta.GetCapacidade() - aresta.GetFluxo() > 0 && nivel[aresta.GetPara()] == -1)
+                    {
+                        nivel[aresta.GetPara()] = nivel[u] + 1;
+                        fila.Enqueue(aresta.GetPara());
+                    }
+                }
+            }
+            // retorna verdadeiro se o destino é alcançável 
+            return nivel[t] != -1;
+        }
+
+        // busca em profundidade com fluxo
+        private int BuscaProfundidadeDinic(int u, int t, int fluxoEmpurrado, List<ArestaResidual>[] adj, int[] nivel, int[] prox)
+        {
+            if (fluxoEmpurrado == 0 || u == t) return fluxoEmpurrado;
+
+                for (; prox[u] < adj[u].Count; prox[u]++)
+                {
+                    ArestaResidual aresta = adj[u][prox[u]];
+                    int para = aresta.GetPara();
+                    int capResidual = aresta.GetCapacidade() - aresta.GetFluxo();
+
+                    // só avança se o vértice for do próximo nível e houver capacidade residual
+                    if (nivel[u] + 1 != nivel[para] || capResidual == 0) continue;
+
+                    int delta = BuscaProfundidadeDinic(para, t, Math.Min(fluxoEmpurrado, capResidual), adj, nivel, prox);
+
+                    if (delta == 0) continue;
+
+                    aresta.SetFluxo(aresta.GetFluxo() + delta);
+
+                    // atualiza fluxos na aresta e na reversa
+                    ArestaResidual arestaReversa = adj[para][aresta.GetReverso()];
+                    arestaReversa.SetFluxo(arestaReversa.GetFluxo() - delta);
+
+                    return delta;
+                }
+            return 0;
+        }
 
         public Agm Prim()
         {
