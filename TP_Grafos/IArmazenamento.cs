@@ -8,6 +8,23 @@ namespace TP_Grafos
 {
     interface IArmazenamento
     {
+        static IArmazenamento Escolher(StreamReader arq)
+        {
+            string linha = arq.ReadLine();
+            string[] valores = linha.Split(' ');
+            int vertice = int.Parse(valores[0]);
+            int arestas = int.Parse(valores[1]);
+            arq.BaseStream.Seek(0, SeekOrigin.Begin);
+            arq.DiscardBufferedData();
+            if (arestas / (vertice * (vertice - 1)) > 0.5)
+            {
+                return new MatrizAdjacencia(arq);
+            }
+            else
+            {
+                return new ListaAdjacencia(arq);
+            }
+        }
         public void AdicionarVertice();
         public void AdicionarAresta(int vertA, int vertB, int peso, int capacidade);
         public int GetPeso(int vertA, int vertB); 

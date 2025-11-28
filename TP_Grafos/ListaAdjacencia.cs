@@ -30,6 +30,7 @@ namespace TP_Grafos
                 _lista.ElementAt(int.Parse(valores[0]) - 1).AddAresta(novaAresta);
                 linha = arq.ReadLine();
             }
+            arq.Close();
         }
         public void AdicionarVertice()
         {

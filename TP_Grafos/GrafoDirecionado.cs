@@ -12,8 +12,7 @@ namespace TP_Grafos
 
         public GrafoDirecionado(StreamReader arq)
         {
-            armazenamento = new ListaAdjacencia(arq);
-            //armazenamento = new MatrizAdjacencia(arq);
+            armazenamento = IArmazenamento.Escolher(arq);
         }
         public void AdicionarVertice()
         {

@@ -27,6 +27,7 @@ namespace TP_Grafos
                 _matriz[int.Parse(valores[0])-1, int.Parse(valores[1])-1] = new Aresta(int.Parse(valores[0]), int.Parse(valores[1]), int.Parse(valores[2]), int.Parse(valores[3]));
                 linha =arq.ReadLine();                    
             }
+            arq.Close();
         }
         public void AdicionarVertice() {
             Aresta[,] matriz2 = new Aresta[_matriz.GetLength(0) +1,_matriz.GetLength(0) +1];
