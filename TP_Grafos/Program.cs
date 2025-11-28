@@ -14,7 +14,7 @@
             //criar a estrutura de dados que armazena a rede
             StreamReader grafo01 = new StreamReader("grafo01.txt", false);
             GrafoDirecionado rede = new GrafoDirecionado(grafo01);
-            
+
             int opc;
 
             // arquivo de logs que sera usado para escrever os resultados depois
@@ -34,10 +34,10 @@
                         Console.WriteLine("Informe o hub de destino: ");
                         destino = int.Parse(Console.ReadLine());
 
-                        
+
                         int distancia = rede.DijkstraEntre(origem, destino);
                         Console.WriteLine($"A distância entre os hubs {origem} e {destino} é: {distancia}.");
-                        
+
                         break;
                     case 2:
                         break;
@@ -58,9 +58,9 @@
                         break;
                 }
 
-            } while (opc != 6); 
-          
-            
+            } while (opc != 6);
+
+
         }
     }
 }

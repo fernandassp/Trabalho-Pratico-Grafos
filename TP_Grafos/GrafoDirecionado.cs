@@ -12,15 +12,24 @@ namespace TP_Grafos
 
         public GrafoDirecionado(StreamReader arq)
         {
-            armazenamento = IArmazenamento.Escolher(arq);
+            armazenamento = IArmazenamento.EscolherInicio(arq);
+        }
+        public void DeveMudar()
+        {
+            if (IArmazenamento.DeveMudar(armazenamento.GetQuantVertices(), armazenamento.GetQuantArestas(), armazenamento))
+            {
+                armazenamento = IArmazenamento.Mudar(armazenamento, GetQuantVertices(), GetArestas());
+            }
         }
         public void AdicionarVertice()
         {
             armazenamento.AdicionarVertice();
+            DeveMudar();
         }
         public void AdicionarAresta(int vertA, int vertB, int peso, int capacidade)
         {
             armazenamento.AdicionarAresta(vertA, vertB, peso, capacidade);
+            DeveMudar();
         }
 
         public int GetQuantVertices()
@@ -105,7 +114,7 @@ namespace TP_Grafos
             Vertice raiz = new Vertice(1);
             agm.AddVertice(raiz);
 
-            while (agm.QuantVertices() != armazenamento.GetQuantVertices()) 
+            while (agm.QuantVertices() != armazenamento.GetQuantVertices())
             {
                 //encontrar menor aresta v,w em que v ta em v(t) e w nao
                 Aresta menorAresta = ArestaMenorPesoPrim(agm);
@@ -133,6 +142,6 @@ namespace TP_Grafos
             }
 
             return menorAresta;
-        } 
+        }
     }
 }

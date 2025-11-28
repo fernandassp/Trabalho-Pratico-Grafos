@@ -21,7 +21,7 @@ namespace TP_Grafos
         {
             _vertices.Add(vertice);
         }
-        public void AddAresta (Aresta aresta)
+        public void AddAresta(Aresta aresta)
         {
             _arestas.Add(aresta);
         }
@@ -33,9 +33,9 @@ namespace TP_Grafos
 
         public bool ContemOVertice(int vertice)
         {
-            foreach(Vertice vert in _vertices)
+            foreach (Vertice vert in _vertices)
             {
-                if(vert.GetNumero() == vertice)
+                if (vert.GetNumero() == vertice)
                 {
                     return true;
                 }
@@ -45,13 +45,13 @@ namespace TP_Grafos
 
         public void Imprimir()
         {
-            for(int i = 0; i<_vertices.Count - 1; i++)
+            for (int i = 0; i < _vertices.Count - 1; i++)
             {
                 Console.Write($"Hub {_vertices[i].GetNumero()} -> ");
-                Console.Write($"Rota ({_vertices[i].GetNumero()}, {_vertices[i+1].GetNumero()}) -> ");
-                
+                Console.Write($"Rota ({_vertices[i].GetNumero()}, {_vertices[i + 1].GetNumero()}) -> ");
+
             }
-            Console.Write($"Hub {_vertices[_vertices.Count-1].GetNumero()}");
+            Console.Write($"Hub {_vertices[_vertices.Count - 1].GetNumero()}");
 
 
             Console.WriteLine();
