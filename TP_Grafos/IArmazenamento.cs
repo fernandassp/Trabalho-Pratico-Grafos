@@ -57,5 +57,7 @@ namespace TP_Grafos
         public int GetQuantArestas();
         public int GetQuantVertices();
         public LinkedList<Aresta> GetArestasIncidentes(int numVertice);
+
+        public void BuscarEmProfundidade();
     }
 }

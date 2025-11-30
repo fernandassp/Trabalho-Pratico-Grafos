@@ -80,7 +80,7 @@
                             Console.WriteLine($"O fluxo máximo entre {s} e {t} é {fluxomaximo}");
                         }
                         break;
-                    case 3:
+                    case 3:  //ver de mudar pra kruskal; problema do Prim
                         i = 1;
                         foreach(GrafoDirecionado rede in redes)
                         {
@@ -92,9 +92,9 @@
                         }
                        
                         break;
-                    case 4:
+                    case 4: // coloração - welsh powell
                         break;
-                    case 5:
+                    case 5: // euleriano: fleury
                         break;
                     case 6:
                         Console.WriteLine("O programa será encerrado.");

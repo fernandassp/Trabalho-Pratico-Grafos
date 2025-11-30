@@ -13,6 +13,8 @@ namespace TP_Grafos
         int _peso;
         int _capacidade;
 
+        string _tipo; // busca em prof.
+
         public Aresta(int antecessor, int sucessor, int peso, int capacidade)
         {
             _antecessor = antecessor;
@@ -29,6 +31,15 @@ namespace TP_Grafos
         public override string ToString()
         {
             return $"v:{_sucessor}, w:{_antecessor}, peso:{_peso}, capacidade:{_capacidade}";
+        }
+
+        public void DefinirTipo(string tipo)
+        {
+            _tipo = tipo;
+        }
+        public string GetTipo()
+        {
+            return _tipo;
         }
     }
 }

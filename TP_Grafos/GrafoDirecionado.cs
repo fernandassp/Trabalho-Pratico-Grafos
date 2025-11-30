@@ -212,13 +212,14 @@ namespace TP_Grafos
             AgmK agm = new AgmK();
 
             List<Aresta> ordenadas = new List<Aresta>(_armazenamento.GetArestas().OrderBy(a => a.GetPeso()));
+            
             agm.AddVertices(GetQuantVertices());
 
             agm.AddAresta(ordenadas.ElementAt(0));
 
-            int j = 1;
+            int j = 0;
             int quantArestas = _armazenamento.GetQuantArestas();
-            while (agm.GetArestasT().Count < quantArestas - 1)
+            while (agm.GetArestasT().Count < quantArestas - 1 && j < ordenadas.Count)
             {
                 Aresta nova = ordenadas.ElementAt(j);
 
@@ -232,14 +233,14 @@ namespace TP_Grafos
             return agm;
         }
 
-        /*public Agm Prim()
+        public Agm Prim()
         {
 
             Agm agm = new Agm();
             Vertice raiz = new Vertice(1);
             agm.AddVertice(raiz);
 
-            while (agm.QuantVertices() != armazenamento.GetQuantVertices())
+            while (agm.QuantVertices() != _armazenamento.GetQuantVertices())
             {
                 //encontrar menor aresta v,w em que v ta em v(t) e w nao
                 Aresta menorAresta = ArestaMenorPesoPrim(agm);
@@ -251,9 +252,9 @@ namespace TP_Grafos
 
             return agm;
 
-        }*/
+        }
 
-        /*private Aresta ArestaMenorPesoPrim(Agm agm)
+        private Aresta ArestaMenorPesoPrim(Agm agm)
         {
             int menor = int.MaxValue;
             Aresta menorAresta = GetArestas().ElementAt(0);
@@ -267,6 +268,6 @@ namespace TP_Grafos
             }
 
             return menorAresta;
-        }*/
+        }
     }
 }

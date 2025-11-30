@@ -10,6 +10,57 @@ namespace TP_Grafos
     {
         List<Vertice> _lista;
 
+        static int TempoGlobal;
+        public void BuscarEmProfundidade()
+        {
+            TempoGlobal = 0;
+
+            int[,] resultados = new int[3, GetQuantVertices()]; // -1 pra null
+            for (int i = 0; i < resultados.GetLength(1); i++)
+            {
+                resultados[2, i] = -1;
+            }
+
+            // p/ cada vértice v, se seu TD = 0, chama BuscaProfundidade(v)
+            for (int i = 0; i < resultados.GetLength(1); i++)
+            {
+                if (resultados[0, i] == 0)
+                    BuscaProfundidade(i + 1, resultados);
+            }
+        }
+        private void BuscaProfundidade(int vertice, int[,] resultados)
+        {
+            TempoGlobal++;
+            resultados[0, vertice - 1] = TempoGlobal;
+
+            LinkedList<Aresta> arestasIncidentes = GetArestasIncidentes(vertice);
+
+            foreach (Aresta a in arestasIncidentes)
+            {
+                if (resultados[0, a.GetSucessor() - 1] == 0)
+                {
+                    a.DefinirTipo("arvore");
+                    resultados[2, a.GetSucessor() - 1] = vertice;
+                    BuscaProfundidade(a.GetSucessor(), resultados);
+                }
+                else
+                {
+                    if (resultados[1, a.GetSucessor() - 1] == 0)
+                    {
+                        a.DefinirTipo("retorno");
+                    }
+                    else if (resultados[0, vertice - 1] < resultados[0, a.GetSucessor() - 1])
+                    {
+                        a.DefinirTipo("avanco");
+                    }
+                    else
+                    {
+                        a.DefinirTipo("cruzamento");
+                    }
+                }
+            }
+            TempoGlobal++; resultados[1, vertice - 1] = TempoGlobal;
+        }
         public ListaAdjacencia(StreamReader arq)
         {
             _lista = new List<Vertice>();
@@ -116,7 +167,7 @@ namespace TP_Grafos
         {
             return _lista[numVertice - 1].GetArestas();
         }
-        public void Mostarlista()
+        public void Mostrarlista()
         {
             foreach (Vertice v in _lista)
             {
