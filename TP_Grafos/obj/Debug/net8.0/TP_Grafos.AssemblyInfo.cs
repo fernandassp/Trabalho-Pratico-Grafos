@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TP_Grafos")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+23b8ed0ac4d67aeef7ec8c736791032662392fe2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+20dac94e7afacc2545db6756a494cba898c08c8f")]
 [assembly: System.Reflection.AssemblyProductAttribute("TP_Grafos")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TP_Grafos")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
