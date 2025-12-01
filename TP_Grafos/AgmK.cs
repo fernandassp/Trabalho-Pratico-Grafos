@@ -4,13 +4,13 @@ using TP_Grafos;
 internal class AgmK
 {
     private List<Vertice> _verticesT;
-    private LinkedList<Aresta> _arestasT;
+    private List<Aresta> _arestasT;
     private IArmazenamento _grafo;
 
     public AgmK()
     {
         _verticesT = new List<Vertice>();
-        _arestasT = new LinkedList<Aresta>();
+        _arestasT = new List<Aresta>();
         this._grafo = new ListaAdjacencia();
     }
     public List<Vertice> GetVerticesT()
@@ -18,7 +18,7 @@ internal class AgmK
         return _verticesT;
     }
 
-    public LinkedList<Aresta> GetArestasT()
+    public List<Aresta> GetArestasT()
     {
         return _arestasT;
     }
@@ -33,12 +33,14 @@ internal class AgmK
 
     public void AddAresta(Aresta aresta)
     {
-        _arestasT.AddLast(aresta);
+        _arestasT.Add(aresta);
     }
 
-    public bool ArestaNaoFazCiclo(Aresta a)
+    public bool ArestaFazCiclo(Aresta a)
     {
-        
+        //_grafo = new ListaAdjacencia();
+
+
         foreach (Vertice v in _verticesT)
         {
             _grafo.AddVertice();
@@ -72,16 +74,26 @@ internal class AgmK
     public string Imprimir()
     {
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i<_verticesT.Count-1; i++)
+        sb.Append("Rota possível: ");
+        for (int i = 0; i<_arestasT.Count-1; i++)
         {
-            sb.Append($"Hub {_verticesT[i].GetNumero()} -> ");
-            sb.Append($"Rota ({_verticesT[i].GetNumero()}, {_verticesT[i + 1].GetNumero()}) -> ");
+            sb.Append($"({_arestasT[i].GetAntecessor()}, {_arestasT[i].GetSucessor()})-> ");
         }
-        sb.Append($"Hub {_verticesT[_verticesT.Count - 1].GetNumero()}\n");
-
+        sb.Append($"({_arestasT[_arestasT.Count-1].GetAntecessor()}, {_arestasT[_arestasT.Count-1].GetSucessor()})");
+        sb.AppendLine();
         sb.AppendLine("CUSTO TOTAL: " + CustoTotal());
 
         sb.AppendLine();
         return sb.ToString();
+    }
+
+    public bool ContemAresta(Aresta aresta)
+    {
+        foreach(Aresta a in _arestasT)
+        {
+            if (a.GetSucessor() == aresta.GetSucessor() && a.GetAntecessor() == aresta.GetAntecessor() || a.GetSucessor() == aresta.GetAntecessor() && a.GetAntecessor() == aresta.GetSucessor())
+                return true;
+        }
+        return false;
     }
 }

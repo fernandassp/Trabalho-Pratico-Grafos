@@ -114,7 +114,7 @@
                             arquivoLog.WriteLine("Possível rota: \n");
                             Console.WriteLine($"\n\tGRAFO {i}\n");
                             Console.WriteLine("Possível rota: \n");
-                            Agm agm = rede.Prim();
+                            AgmK agm = rede.AGM_Kruskal();
                             Console.WriteLine(agm.Imprimir());
                             arquivoLog.WriteLine(agm.Imprimir());
                             i++;

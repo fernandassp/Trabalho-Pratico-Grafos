@@ -167,6 +167,15 @@ namespace TP_Grafos
                     resultados[2, a.GetSucessor() - 1] = vertice;
                     BuscaProfundidade(a.GetSucessor(), resultados);
                 }
+                // NÃO DIRECIONADO
+                else if (resultados[1, a.GetSucessor() -1] == 0 && a.GetSucessor() != resultados[2,a.GetAntecessor()-1])
+                {
+                    a.DefinirTipo("retorno");
+                }
+                
+                 
+                /*
+                 // DIRECIONADO
                 else
                 {
                     if (resultados[1, a.GetSucessor() - 1] == 0)
@@ -181,7 +190,8 @@ namespace TP_Grafos
                     {
                         a.DefinirTipo("cruzamento");
                     }
-                }
+                } 
+                */
             }
             TempoGlobal++; resultados[1, vertice - 1] = TempoGlobal;
         }

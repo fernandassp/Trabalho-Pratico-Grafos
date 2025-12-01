@@ -12,7 +12,8 @@ namespace TP_Grafos
 
         public GrafoDirecionado(StreamReader arq)
         {
-            _armazenamento = IArmazenamento.EscolherInicio(arq);
+            //_armazenamento = IArmazenamento.EscolherInicio(arq);
+            _armazenamento = new MatrizAdjacencia(arq);
         }
         public void DeveMudar()
         {
@@ -211,20 +212,22 @@ namespace TP_Grafos
         {
             AgmK agm = new AgmK();
 
-            List<Aresta> ordenadas = new List<Aresta>(_armazenamento.GetArestas().OrderBy(a => a.GetPeso()));
+            List<Aresta> ordenadas = new List<Aresta>(_armazenamento.GetArestasND().OrderBy(a => a.GetPeso()));
             
             agm.AddVertices(GetQuantVertices());
+            
 
             agm.AddAresta(ordenadas.ElementAt(0));
 
-            int j = 0;
-            int quantArestas = _armazenamento.GetQuantArestas();
-            while (agm.GetArestasT().Count < quantArestas - 1 && j < ordenadas.Count)
+            int j = 1;
+            int quantVertices = _armazenamento.GetQuantVertices();
+            while (agm.GetArestasT().Count < quantVertices - 1 && j < ordenadas.Count)
             {
                 Aresta nova = ordenadas.ElementAt(j);
-
-                if (agm.ArestaNaoFazCiclo(nova))
+               
+                if (!agm.ContemAresta(nova) && !agm.ArestaFazCiclo(nova))
                 {
+                    Console.WriteLine("add");
                     agm.AddAresta(nova);
                 }
                 j++;

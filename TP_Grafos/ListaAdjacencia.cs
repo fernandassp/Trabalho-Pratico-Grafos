@@ -11,6 +11,11 @@ namespace TP_Grafos
         List<Vertice> _lista;
 
         static int TempoGlobal;
+
+        public List<Aresta> GetArestasND() // MUDAR
+        {
+            return new List<Aresta>();
+        }
         public void BuscarEmProfundidade()
         {
             TempoGlobal = 0;
