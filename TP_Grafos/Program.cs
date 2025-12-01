@@ -75,8 +75,10 @@
                             {
                                 int hubAtual = rotaEncontrada.Pop();
                                 Console.Write($"Hub {hubAtual} -> ");
+                                arquivoLog.Write($"Hub {hubAtual} -> ");
                             }
                             Console.WriteLine($"Hub {destino}.");
+                            arquivoLog.WriteLine($"Hub {destino}.");
                             Console.WriteLine($"A distância entre os hubs {origem} e {destino} é: {distancia}.");
                             arquivoLog.WriteLine($"A distância entre os hubs {origem} e {destino} é: {distancia}.");
                             i++;
