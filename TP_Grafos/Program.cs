@@ -60,7 +60,23 @@
                             Console.WriteLine("Informe o hub de destino: ");
                             destino = int.Parse(Console.ReadLine());
 
-                            int distancia = rede.DijkstraEntre(origem, destino);
+                            int[,] distancias = rede.DijkstraEntre(origem, destino);
+                            int distancia = distancias[0, destino-1];
+                            Stack<int> rotaEncontrada = new Stack<int>();
+                            rotaEncontrada.Push(destino);
+                            int atual = distancias[1,destino-1];
+                            while (atual != origem)
+                            {
+                                rotaEncontrada.Push(atual);
+                                atual = distancias[1,atual-1];
+                            }
+                            rotaEncontrada.Push(origem);
+                            for (int x =0; x<rotaEncontrada.Count; x++)
+                            {
+                                int hubAtual = rotaEncontrada.Pop();
+                                Console.Write($"Hub {hubAtual} -> ");
+                            }
+                            Console.WriteLine($"Hub {destino}.");
                             Console.WriteLine($"A distância entre os hubs {origem} e {destino} é: {distancia}.");
                             arquivoLog.WriteLine($"A distância entre os hubs {origem} e {destino} é: {distancia}.");
                             i++;

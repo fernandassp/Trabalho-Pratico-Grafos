@@ -60,7 +60,7 @@ namespace TP_Grafos
             }
             return corteS;
         }
-        public int DijkstraEntre(int origem, int destino)
+        public int[,] DijkstraEntre(int origem, int destino)
         {
             int[,] resultados = new int[2, GetQuantVertices()]; // [0,i]: dist; [1,i]: pred
             // -1 pra null, intMaxValue pra infinito
@@ -103,7 +103,7 @@ namespace TP_Grafos
                 }
             }
 
-            return resultados[0, destino - 1];
+            return resultados;
         }
 
         public int DinicEntre(int s, int t)
