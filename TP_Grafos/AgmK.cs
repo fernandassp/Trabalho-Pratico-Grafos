@@ -39,21 +39,22 @@ internal class AgmK
     public bool ArestaFazCiclo(Aresta a)
     {
         //_grafo = new ListaAdjacencia();
+        GrafoAuxAGM grafoAux = new GrafoAuxAGM();
 
 
         foreach (Vertice v in _verticesT)
         {
-            _grafo.AddVertice();
+            grafoAux.AddVertice(v);
         }
         foreach (Aresta aresta in _arestasT)
         {
-            _grafo.AddAresta(aresta.GetAntecessor(),aresta.GetSucessor(),aresta.GetPeso(),aresta.GetCapacidade());
+            grafoAux.AddAresta(aresta);
         }
-        _grafo.AddAresta(a.GetAntecessor(), a.GetSucessor(), a.GetPeso(), a.GetCapacidade());
+        grafoAux.AddAresta(a);
 
-        _grafo.BuscarEmProfundidade();
+        grafoAux.BuscarEmProfundidade();
 
-        foreach (Aresta aresta in _grafo.GetArestas())
+        foreach (Aresta aresta in grafoAux.Arestas())
         {
             if (aresta.GetTipo() == "retorno")
                 return false;

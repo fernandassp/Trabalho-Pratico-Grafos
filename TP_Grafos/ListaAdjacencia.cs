@@ -10,12 +10,14 @@ namespace TP_Grafos
     {
         List<Vertice> _lista;
 
-        static int TempoGlobal;
+        //static int TempoGlobal;
 
         public List<Aresta> GetArestasND() // MUDAR
         {
             return new List<Aresta>();
         }
+
+        /*
         public void BuscarEmProfundidade()
         {
             TempoGlobal = 0;
@@ -66,6 +68,8 @@ namespace TP_Grafos
             }
             TempoGlobal++; resultados[1, vertice - 1] = TempoGlobal;
         }
+        */
+
         public ListaAdjacencia(StreamReader arq)
         {
             _lista = new List<Vertice>();

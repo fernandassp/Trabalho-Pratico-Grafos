@@ -8,12 +8,12 @@ namespace TP_Grafos
 {
     internal class Aresta
     {
-        int _sucessor;
-        int _antecessor;
-        int _peso;
-        int _capacidade;
+        private int _sucessor;
+        private int _antecessor;
+        private int _peso;
+        private int _capacidade;
 
-        string _tipo; // busca em prof.
+        private string _tipo; // busca em prof.
 
         public Aresta(int antecessor, int sucessor, int peso, int capacidade)
         {
