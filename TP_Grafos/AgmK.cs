@@ -1,4 +1,5 @@
-﻿using TP_Grafos;
+﻿using System.Text;
+using TP_Grafos;
 
 internal class AgmK
 {
@@ -68,17 +69,19 @@ internal class AgmK
         return soma;
     }
 
-    public void Imprimir()
+    public string Imprimir()
     {
+        StringBuilder sb = new StringBuilder();
         for(int i = 0; i<_verticesT.Count-1; i++)
         {
-            Console.Write($"Hub {_verticesT[i].GetNumero()} -> ");
-            Console.Write($"Rota ({_verticesT[i].GetNumero()}, {_verticesT[i + 1].GetNumero()}) -> ");
+            sb.Append($"Hub {_verticesT[i].GetNumero()} -> ");
+            sb.Append($"Rota ({_verticesT[i].GetNumero()}, {_verticesT[i + 1].GetNumero()}) -> ");
         }
-        Console.Write($"Hub {_verticesT[_verticesT.Count - 1].GetNumero()}\n");
+        sb.Append($"Hub {_verticesT[_verticesT.Count - 1].GetNumero()}\n");
 
-        Console.WriteLine("CUSTO TOTAL: " + CustoTotal());
+        sb.AppendLine("CUSTO TOTAL: " + CustoTotal());
 
-        Console.WriteLine();
+        sb.AppendLine();
+        return sb.ToString();
     }
 }

@@ -52,19 +52,21 @@ namespace TP_Grafos
             return false;
         }
 
-        public void Imprimir()
+        public string Imprimir()
         {
+            StringBuilder sb = new StringBuilder();
             for (int i = 0; i < _vertices.Count - 1; i++)
             {
-                Console.Write($"Hub {_vertices[i].GetNumero()} -> ");
-                Console.Write($"Rota ({_vertices[i].GetNumero()}, {_vertices[i + 1].GetNumero()}) -> ");
+                sb.Append($"Hub {_vertices[i].GetNumero()} -> ");
+                sb.Append($"Rota ({_vertices[i].GetNumero()}, {_vertices[i + 1].GetNumero()}) -> ");
 
             }
-            Console.Write($"Hub {_vertices[_vertices.Count - 1].GetNumero()}\n");
+            sb.Append($"Hub {_vertices[_vertices.Count - 1].GetNumero()}\n");
 
-            Console.WriteLine("CUSTO TOTAL: " + CustoTotal());
+            sb.AppendLine("CUSTO TOTAL: " + CustoTotal());
 
-            Console.WriteLine();
+            sb.AppendLine();
+            return sb.ToString();
         }
     }
 }

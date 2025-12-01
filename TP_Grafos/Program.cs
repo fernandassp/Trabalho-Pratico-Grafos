@@ -38,9 +38,8 @@
 
             int opc;
 
-            // arquivo de logs que sera usado para escrever os resultados depois
             StreamWriter arquivoLog = new StreamWriter("log.txt", false);
-
+            arquivoLog.WriteLine($"\t\t-->Execução - {DateTime.Now}\n\n");
             do
             {
                 ExibirMenu();
@@ -49,10 +48,12 @@
                 switch (opc)
                 {
                     case 1:
+                        arquivoLog.WriteLine("\n----- Roteamento de menor custo -----\n");
                         int i = 1;
                         foreach (GrafoDirecionado rede in redes)
                         {
                             Console.WriteLine($"\n\tGRAFO {i}\n");
+                            arquivoLog.WriteLine($"\n\tGRAFO {i}\n");
                             int origem, destino;
                             Console.WriteLine("Informe o hub de origem: ");
                             origem = int.Parse(Console.ReadLine());
@@ -61,14 +62,18 @@
 
                             int distancia = rede.DijkstraEntre(origem, destino);
                             Console.WriteLine($"A distância entre os hubs {origem} e {destino} é: {distancia}.");
+                            arquivoLog.WriteLine($"A distância entre os hubs {origem} e {destino} é: {distancia}.");
                             i++;
                         }
+                        arquivoLog.WriteLine("--------------------\n");
                         break;
                     case 2:
+                        arquivoLog.WriteLine("\n----- Capacidade Máxima de Escoamento -----\n");
                         i = 1;
                         foreach (GrafoDirecionado rede in redes)
                         {
                             Console.WriteLine($"\n\tGRAFO {i}\n");
+                            arquivoLog.WriteLine($"\n\tGRAFO {i}\n");
                             int s, t;
                             Console.WriteLine("Informe o hub de origem: ");
                             s = int.Parse(Console.ReadLine());
@@ -78,19 +83,25 @@
 
                             int fluxomaximo = rede.DinicEntre(s, t);
                             Console.WriteLine($"O fluxo máximo entre {s} e {t} é {fluxomaximo}");
+                            arquivoLog.WriteLine($"O fluxo máximo entre {s} e {t} é {fluxomaximo}");
                         }
+                        arquivoLog.WriteLine("--------------------\n");
                         break;
                     case 3:  //ver de mudar pra kruskal; problema do Prim
+                        arquivoLog.WriteLine("\n----- Expansão da Rede de Comunicação -----\n");
                         i = 1;
                         foreach(GrafoDirecionado rede in redes)
                         {
+                            arquivoLog.WriteLine($"\n\tGRAFO {i}\n");
+                            arquivoLog.WriteLine("Possível rota: \n");
                             Console.WriteLine($"\n\tGRAFO {i}\n");
                             Console.WriteLine("Possível rota: \n");
                             Agm agm = rede.Prim();
-                            agm.Imprimir();
+                            Console.WriteLine(agm.Imprimir());
+                            arquivoLog.WriteLine(agm.Imprimir());
                             i++;
                         }
-                       
+                        arquivoLog.WriteLine("--------------------\n");
                         break;
                     case 4: // coloração - welsh powell
                         break;
@@ -106,6 +117,7 @@
 
             } while (opc != 6);
 
+            arquivoLog.Close();
 
         }
     }
