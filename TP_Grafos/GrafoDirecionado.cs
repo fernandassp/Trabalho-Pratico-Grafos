@@ -212,7 +212,7 @@ namespace TP_Grafos
         {
             AgmK agm = new AgmK();
 
-            List<Aresta> ordenadas = new List<Aresta>(_armazenamento.GetArestasND().OrderBy(a => a.GetPeso()));
+            List<Aresta> ordenadas = new List<Aresta>(_armazenamento.GetArestas().OrderBy(a => a.GetPeso()));
             
             agm.AddVertices(GetQuantVertices());
             

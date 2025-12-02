@@ -17,8 +17,11 @@ namespace TP_Grafos
         public List<Aresta> GetArestasIncidentes(int v)
         {
             List<Aresta> arestas = new List<Aresta>();
-            
-
+            foreach (Aresta a in _arestas)
+            {
+                if(a.GetAntecessor()==v||a.GetSucessor()==v)
+                    arestas.Add(a);
+            }
             return arestas;
         }
         public void BuscarEmProfundidade()
@@ -43,25 +46,31 @@ namespace TP_Grafos
             TempoGlobal++;
             resultados[0, vertice - 1] = TempoGlobal;
 
-            LinkedList<Aresta> arestasIncidentes = GetArestasIncidentes(vertice);
+            List<Aresta> arestasIncidentes = GetArestasIncidentes(vertice);
 
             foreach (Aresta a in arestasIncidentes)
             {
-                if (resultados[0, a.GetSucessor() - 1] == 0)
+                // Descobrir quem é o outro vértice da aresta (pois é não direcionada)
+                int w = (a.GetAntecessor() == vertice) ? a.GetSucessor() : a.GetAntecessor();
+
+                // Aresta de árvore
+                if (resultados[0, w - 1] == 0)
                 {
                     a.DefinirTipo("arvore");
-                    resultados[2, a.GetSucessor() - 1] = vertice;
-                    BuscaProfundidade(a.GetSucessor(), resultados);
+                    resultados[2, w - 1] = vertice;
+                    BuscaProfundidade(w, resultados);
                 }
-                // NÃO DIRECIONADO
-                else if (resultados[1, a.GetSucessor() - 1] == 0 && a.GetSucessor() != resultados[2, a.GetAntecessor() - 1])
+                // Aresta de retorno (não direcionado)
+                else if (resultados[1, w - 1] == 0 && w != resultados[2, vertice - 1])
                 {
                     a.DefinirTipo("retorno");
                 }
-
             }
-            TempoGlobal++; resultados[1, vertice - 1] = TempoGlobal;
+
+            TempoGlobal++;
+            resultados[1, vertice - 1] = TempoGlobal;
         }
+
 
         public List<Vertice> Vertices()
         {
@@ -78,6 +87,14 @@ namespace TP_Grafos
         public void AddAresta(Aresta aresta)
         {
             _arestas.Add(aresta);
+        }
+        public void AddVertices(List<Vertice> vertice)
+        {
+            _vertices = vertice;
+        }
+        public void AddArestas(List<Aresta> aresta)
+        {
+            _arestas = aresta;
         }
     }
 

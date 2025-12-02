@@ -42,14 +42,10 @@ internal class AgmK
         GrafoAuxAGM grafoAux = new GrafoAuxAGM();
 
 
-        foreach (Vertice v in _verticesT)
-        {
-            grafoAux.AddVertice(v);
-        }
-        foreach (Aresta aresta in _arestasT)
-        {
-            grafoAux.AddAresta(aresta);
-        }
+
+            grafoAux.AddVertices(_verticesT);
+            grafoAux.AddArestas(_arestasT);
+        
         grafoAux.AddAresta(a);
 
         grafoAux.BuscarEmProfundidade();
@@ -57,9 +53,9 @@ internal class AgmK
         foreach (Aresta aresta in grafoAux.Arestas())
         {
             if (aresta.GetTipo() == "retorno")
-                return false;
+                return true;
         }
-        return true;
+        return false;
     }
 
     public int CustoTotal()
