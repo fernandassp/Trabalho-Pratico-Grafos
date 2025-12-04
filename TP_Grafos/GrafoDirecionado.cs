@@ -12,8 +12,7 @@ namespace TP_Grafos
 
         public GrafoDirecionado(StreamReader arq)
         {
-            //_armazenamento = IArmazenamento.EscolherInicio(arq);
-            _armazenamento = new MatrizAdjacencia(arq);
+            _armazenamento = IArmazenamento.EscolherInicio(arq);
         }
         public void DeveMudar()
         {
@@ -273,54 +272,43 @@ namespace TP_Grafos
             return menorAresta;
         }
 
-        // verificar se é conexo?
-        public void MetodoFleury() // retorno
+        
+        public bool FortementeConexo(GrafoAuxFleury grafo)
         {
-            GrafoAuxAGM aux = new GrafoAuxAGM();
-            for(int i = 0; i<_armazenamento.GetQuantVertices(); i++)
+            List<int> visitados1 = grafo.BuscarEmProfundidade(false);
+            
+            if (visitados1.Count != GetQuantVertices())
+            { return false; }
+            List<int> visitados2 = grafo.BuscarEmProfundidade(true);
+
+            return visitados2.Count == GetQuantVertices();
+
+        }
+
+        public string ImprimirCicloFleury(List<int> ciclo)
+        {
+            StringBuilder sb = new StringBuilder();
+            for(int i = 0; i<ciclo.Count-1; i++)
             {
-                aux.AddVertice(new Vertice(i+1));
+                sb.Append(ciclo[i] + " -> ");
             }
-            aux.AddArestas(_armazenamento.GetArestas());
+            sb.AppendLine(ciclo[ciclo.Count-1] + "");
+            sb.AppendLine();
+            return sb.ToString();
+        }
+        public List<int> MetodoFleury()
+        {
+            GrafoAuxFleury auxFleury = new GrafoAuxFleury(GetQuantVertices(), GetArestas());
 
-          
+            if (FortementeConexo(auxFleury))
+            {
+                int verticeInicial = 1;
+                List<int> ciclo = auxFleury.EncontrarCicloEuleriano(verticeInicial);
+                return ciclo;
+            }
 
-            /*
-             1. Verificação inicial para digrafo:
-   Para todo vértice v:
-       Calcular grau_entrada(v) e grau_saída(v)
-   
-   Contar vértices onde grau_entrada(v) ≠ grau_saída(v):
-       Se 0 vértices com diferença: -> Ciclo Euleriano
-       Se 2 vértices com diferença: 
-           Verificar se um tem grau_saída = grau_entrada + 1 (início)
-           e outro tem grau_entrada = grau_saída + 1 (fim)
-           -> Caminho Euleriano
-       Senão:
-           PARE (não é euleriano)
 
-   Verificar se o digrafo é fortemente conexo (ou ao menos fracamente conexo):
-       Se não for conexo: PARE
-
-            2. Seja G' = (V', E') tal que V' ← V(G) e E' ← E(G)
-
-3. Selecionar vértice inicial v ∈ V':
-   Se for Ciclo Euleriano: escolher qualquer vértice
-   Se for Caminho Euleriano: escolher o vértice s com grau_saída(s) = grau_entrada(s) + 1
-
-4. Enquanto E' ≠ ∅:
-   a. Se d_saída(v) > 1 então:
-         Selecionar aresta (v, w) que não seja "ponte forte" em G'
-         (isto é, cuja remoção não desconecte fortemente o grafo restante)
-   b. Senão:
-         Selecionar a única aresta (v, w) disponível de v em G'
-   
-   c. Adicionar (v, w) ao caminho/ciclo euleriano
-   d. E' ← E' - {(v, w)}
-   e. v ← w
-
-5. Retornar o caminho/ciclo euleriano encontrado
-             */
+            return null;
         }
     }
 }

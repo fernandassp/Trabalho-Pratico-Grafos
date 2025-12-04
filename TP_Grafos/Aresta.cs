@@ -22,6 +22,14 @@ namespace TP_Grafos
             _peso = peso;
             _capacidade = capacidade;
         }
+        public void SetSucessor(int num)
+        {
+            _sucessor = num;
+        }
+        public void SetAntecessor(int num)
+        {
+            _antecessor = num;
+        }
         public int GetSucessor() { return _sucessor; }
 
         public int GetAntecessor() { return _antecessor; }

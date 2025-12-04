@@ -12,8 +12,6 @@ namespace TP_Grafos
         private List<Aresta> _arestas;
         static int TempoGlobal;
 
-
-
         public List<Aresta> GetArestasIncidentes(int v)
         {
             List<Aresta> arestas = new List<Aresta>();

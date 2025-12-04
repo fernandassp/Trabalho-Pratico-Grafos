@@ -124,6 +124,29 @@
                     case 4: // coloração - welsh powell
                         break;
                     case 5: // euleriano: fleury
+                        arquivoLog.WriteLine("\n----- Rota Única de Inspeção -----\n");
+                        i = 1;
+                        foreach(GrafoDirecionado rede in redes)
+                        {
+                            arquivoLog.WriteLine($"\n\tGRAFO {i}\n");
+                            Console.WriteLine($"\n\tGRAFO {i}\n");
+                            Console.WriteLine($"A) Percurso de rotas");
+                            arquivoLog.WriteLine($"A) Percurso de rotas");
+                            List<int> ciclo = rede.MetodoFleury();
+                            if(ciclo != null)
+                            {
+                                Console.WriteLine(rede.ImprimirCicloFleury(ciclo));
+                                arquivoLog.WriteLine(rede.ImprimirCicloFleury(ciclo));
+                            }
+                            else
+                            {
+                                Console.WriteLine("Não é possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.");
+                                arquivoLog.WriteLine("Não é possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.");
+                            }
+                                i++;
+                        }
+
+                        arquivoLog.WriteLine("--------------------\n");
                         break;
                     case 6:
                         Console.WriteLine("O programa será encerrado.");
