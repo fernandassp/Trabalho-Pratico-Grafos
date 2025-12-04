@@ -272,5 +272,55 @@ namespace TP_Grafos
 
             return menorAresta;
         }
+
+        // verificar se é conexo?
+        public void MetodoFleury() // retorno
+        {
+            GrafoAuxAGM aux = new GrafoAuxAGM();
+            for(int i = 0; i<_armazenamento.GetQuantVertices(); i++)
+            {
+                aux.AddVertice(new Vertice(i+1));
+            }
+            aux.AddArestas(_armazenamento.GetArestas());
+
+          
+
+            /*
+             1. Verificação inicial para digrafo:
+   Para todo vértice v:
+       Calcular grau_entrada(v) e grau_saída(v)
+   
+   Contar vértices onde grau_entrada(v) ≠ grau_saída(v):
+       Se 0 vértices com diferença: -> Ciclo Euleriano
+       Se 2 vértices com diferença: 
+           Verificar se um tem grau_saída = grau_entrada + 1 (início)
+           e outro tem grau_entrada = grau_saída + 1 (fim)
+           -> Caminho Euleriano
+       Senão:
+           PARE (não é euleriano)
+
+   Verificar se o digrafo é fortemente conexo (ou ao menos fracamente conexo):
+       Se não for conexo: PARE
+
+            2. Seja G' = (V', E') tal que V' ← V(G) e E' ← E(G)
+
+3. Selecionar vértice inicial v ∈ V':
+   Se for Ciclo Euleriano: escolher qualquer vértice
+   Se for Caminho Euleriano: escolher o vértice s com grau_saída(s) = grau_entrada(s) + 1
+
+4. Enquanto E' ≠ ∅:
+   a. Se d_saída(v) > 1 então:
+         Selecionar aresta (v, w) que não seja "ponte forte" em G'
+         (isto é, cuja remoção não desconecte fortemente o grafo restante)
+   b. Senão:
+         Selecionar a única aresta (v, w) disponível de v em G'
+   
+   c. Adicionar (v, w) ao caminho/ciclo euleriano
+   d. E' ← E' - {(v, w)}
+   e. v ← w
+
+5. Retornar o caminho/ciclo euleriano encontrado
+             */
+        }
     }
 }

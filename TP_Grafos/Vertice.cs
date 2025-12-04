@@ -26,5 +26,10 @@ namespace TP_Grafos
         }
         public int GetNumero() { return _numero; }
         public LinkedList<Aresta> GetArestas() { return _arestas; }
+
+        public int GrauSaida()
+        {
+            return _arestas.Count;
+        }
     }
 }
