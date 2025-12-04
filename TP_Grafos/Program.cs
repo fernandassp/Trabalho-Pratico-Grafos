@@ -122,6 +122,17 @@
                         arquivoLog.WriteLine("--------------------\n");
                         break;
                     case 4: // coloração - welsh powell
+                        arquivoLog.WriteLine("\n----- Agendamento de Manutenções sem Conflito -----\n");
+                        i = 1;
+                        foreach(GrafoDirecionado rede in redes)
+                        {
+                            arquivoLog.WriteLine($"\n\tGRAFO {i}\n");
+                            Console.WriteLine($"\n\tGRAFO {i}\n");
+                            rede.WelshPowell(); // ver retorno ainda
+                            i++;
+                        }
+
+                        arquivoLog.WriteLine("--------------------\n");
                         break;
                     case 5: // euleriano: fleury
                         arquivoLog.WriteLine("\n----- Rota Única de Inspeção -----\n");

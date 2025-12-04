@@ -311,8 +311,9 @@ namespace TP_Grafos
             return null;
         }
 
-        public void WelshPowell()
+        public void WelshPowell() // alterar retorno
         {
+            
             List<Vertice> ordenados = _armazenamento.GetVertices().OrderByDescending(v => v.GetGrau()).ToList();
 
             List<int> cores = new List<int>();
