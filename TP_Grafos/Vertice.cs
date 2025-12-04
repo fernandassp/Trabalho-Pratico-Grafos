@@ -10,11 +10,15 @@ namespace TP_Grafos
     {
         private LinkedList<Aresta> _arestas;
         private int _numero;
+        private int _grau;
 
         public Vertice(int numero)
         {
             _arestas = new LinkedList<Aresta>();
             _numero = numero;
+        }
+        public void SetGrau(int grau) { 
+            _grau = grau;
         }
         public void AddAresta(Aresta a)
         {
@@ -30,6 +34,9 @@ namespace TP_Grafos
         public int GrauSaida()
         {
             return _arestas.Count;
+        }
+        public int GetGrau() {
+            return _grau;
         }
     }
 }

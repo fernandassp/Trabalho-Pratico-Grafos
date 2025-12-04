@@ -122,13 +122,16 @@ namespace TP_Grafos
         public List<Vertice> GetVertices()
         {
             List<Vertice> vertices = new List<Vertice>();
+            int i = 1, j = 1;
             foreach (Vertice v in _lista)
             {
+                v.SetGrau(GetGrauEntrada(i) + GetGrauSaida(i));
                 Vertice novo = new Vertice(v.GetNumero());
                 foreach (Aresta a in v.GetArestas())
                 {
                     novo.AddAresta(a);
                 }
+                i++; j++;
             }
 
             return vertices;

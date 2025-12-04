@@ -107,6 +107,7 @@ namespace TP_Grafos
                 {
                     if (_matriz[i, j] != null)
                     {
+                        novo.SetGrau(GetGrauEntrada(i+1)+GetGrauSaida(i+1));
                         novo.AddAresta(_matriz[i, j]);
                     }
                 }
