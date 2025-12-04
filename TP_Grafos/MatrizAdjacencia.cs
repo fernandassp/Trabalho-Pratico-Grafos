@@ -97,18 +97,18 @@ namespace TP_Grafos
             }
             return arestas;
         }  
-        public List<Vertice> GetVertices()
+        public List<Vertice> GetVertices() //NAO DIR
         {
             List<Vertice> vertices = new List<Vertice>();
-            for (int i = 0; i < _matriz.GetLength(0); i++)
+            for (int i = 0; i < _matrizND.GetLength(0); i++)
             {
                 Vertice novo = new Vertice(i+1);
-                for (int j = 0; j < _matriz.GetLength(1); j++)
+                for (int j = 0; j < _matrizND.GetLength(1); j++)
                 {
-                    if (_matriz[i, j] != null)
+                    if (_matrizND[i, j] != null)
                     {
                         novo.SetGrau(GetGrauEntrada(i+1)+GetGrauSaida(i+1));
-                        novo.AddAresta(_matriz[i, j]);
+                        novo.AddAresta(_matrizND[i, j]);
                     }
                 }
             }

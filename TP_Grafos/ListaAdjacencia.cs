@@ -119,11 +119,11 @@ namespace TP_Grafos
             return arestas;
         }
 
-        public List<Vertice> GetVertices()
+        public List<Vertice> GetVertices() // NAO DIR
         {
             List<Vertice> vertices = new List<Vertice>();
             int i = 1, j = 1;
-            foreach (Vertice v in _lista)
+            foreach (Vertice v in _listaND)
             {
                 v.SetGrau(GetGrauEntrada(i) + GetGrauSaida(i));
                 Vertice novo = new Vertice(v.GetNumero());

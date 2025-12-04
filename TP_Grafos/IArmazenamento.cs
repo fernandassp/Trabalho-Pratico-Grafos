@@ -63,5 +63,7 @@ namespace TP_Grafos
         public int GetGrauEntrada(int vertice);
 
         public List<Vertice> GetVertices();
+
+
     }
 }

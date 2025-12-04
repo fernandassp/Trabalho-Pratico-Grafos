@@ -313,17 +313,49 @@ namespace TP_Grafos
 
         public void WelshPowell()
         {
-            List<int> graus = new List<int>();
-            for(int i = 0; i < GetQuantVertices(); i++)
-            {
-                graus.Add(_armazenamento.GetGrauSaida(i+1) + _armazenamento.GetGrauEntrada(i+1));
-
-            }
-            List<Vertice> ordenados = _armazenamento.GetVertices();
+            List<Vertice> ordenados = _armazenamento.GetVertices().OrderByDescending(v => v.GetGrau()).ToList();
 
             List<int> cores = new List<int>();
             cores.Add(1);
+            int corAtual = cores[0];
 
+            ordenados[0].Colorir(corAtual); //colore com cor 1
+            int c = 1;
+            while (HaVerticesNaoColoridos(ordenados))
+            {
+                for (int i = 1; i < ordenados.Count; i++)
+                {
+                    Vertice vAtual = ordenados[i];
+                    if (!vAtual.Colorido())
+                    {
+                        List<Aresta> arestas = vAtual.GetArestas();
+                        foreach (Aresta aresta in arestas)
+                        {
+                            if ()
+                            {
+                                //se vértice atual não é adjacente a algum que está colorido, usa a cor atual
+                            }
+                        }
+                    }
+                }
+
+                c++;
+                cores.Add(c);
+                corAtual = cores[c-1];
+            }
+            
+        }
+
+        private bool HaVerticesNaoColoridos(List<Vertice> vertices)
+        {
+            foreach(Vertice v in vertices)
+            {
+                if (!v.Colorido())
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
