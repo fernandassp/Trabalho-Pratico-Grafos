@@ -118,6 +118,21 @@ namespace TP_Grafos
             }
             return arestas;
         }
+
+        public List<Vertice> GetVertices()
+        {
+            List<Vertice> vertices = new List<Vertice>();
+            foreach (Vertice v in _lista)
+            {
+                Vertice novo = new Vertice(v.GetNumero());
+                foreach (Aresta a in v.GetArestas())
+                {
+                    novo.AddAresta(a);
+                }
+            }
+
+            return vertices;
+        }
         public List<Aresta> GetArestasND()
         {
             List<Aresta> arestas = new List<Aresta>();

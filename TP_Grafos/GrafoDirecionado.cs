@@ -310,5 +310,20 @@ namespace TP_Grafos
 
             return null;
         }
+
+        public void WelshPowell()
+        {
+            List<int> graus = new List<int>();
+            for(int i = 0; i < GetQuantVertices(); i++)
+            {
+                graus.Add(_armazenamento.GetGrauSaida(i+1) + _armazenamento.GetGrauEntrada(i+1));
+
+            }
+            List<Vertice> ordenados = _armazenamento.GetVertices();
+
+            List<int> cores = new List<int>();
+            cores.Add(1);
+
+        }
     }
 }
