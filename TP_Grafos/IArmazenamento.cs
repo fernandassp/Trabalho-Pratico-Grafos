@@ -59,7 +59,8 @@ namespace TP_Grafos
         public LinkedList<Aresta> GetArestasIncidentes(int numVertice);
 
         //public void BuscarEmProfundidade();
-
         public List<Aresta> GetArestasND();
+        public int GetGrauSaida(int vertice);  
+        public int GetGrauEntrada(int vertice);
     }
 }

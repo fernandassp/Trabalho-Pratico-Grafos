@@ -9,75 +9,15 @@ namespace TP_Grafos
     internal class ListaAdjacencia : IArmazenamento //esparso
     {
         List<Vertice> _lista;
+        List<Vertice> _listaND;
 
         //static int TempoGlobal;
-
-        public List<Aresta> GetArestasND() // MUDAR
-        {
-            return new List<Aresta>();
-        }
-
-        /*
-        public void BuscarEmProfundidade()
-        {
-            TempoGlobal = 0;
-
-            int[,] resultados = new int[3, GetQuantVertices()]; // -1 pra null
-            for (int i = 0; i < resultados.GetLength(1); i++)
-            {
-                resultados[2, i] = -1;
-            }
-
-            // p/ cada vértice v, se seu TD = 0, chama BuscaProfundidade(v)
-            for (int i = 0; i < resultados.GetLength(1); i++)
-            {
-                if (resultados[0, i] == 0)
-                    BuscaProfundidade(i + 1, resultados);
-            }
-        }
-        private void BuscaProfundidade(int vertice, int[,] resultados)
-        {
-            TempoGlobal++;
-            resultados[0, vertice - 1] = TempoGlobal;
-
-            LinkedList<Aresta> arestasIncidentes = GetArestasIncidentes(vertice);
-
-            foreach (Aresta a in arestasIncidentes)
-            {
-                if (resultados[0, a.GetSucessor() - 1] == 0)
-                {
-                    a.DefinirTipo("arvore");
-                    resultados[2, a.GetSucessor() - 1] = vertice;
-                    BuscaProfundidade(a.GetSucessor(), resultados);
-                }
-                else
-                {
-                    if (resultados[1, a.GetSucessor() - 1] == 0)
-                    {
-                        a.DefinirTipo("retorno");
-                    }
-                    else if (resultados[0, vertice - 1] < resultados[0, a.GetSucessor() - 1])
-                    {
-                        a.DefinirTipo("avanco");
-                    }
-                    else
-                    {
-                        a.DefinirTipo("cruzamento");
-                    }
-                }
-            }
-            TempoGlobal++; resultados[1, vertice - 1] = TempoGlobal;
-        }
-        */
 
         public ListaAdjacencia(StreamReader arq)
         {
             _lista = new List<Vertice>();
+            _listaND = new List<Vertice>();
             CriarLista(arq);
-        } 
-        public ListaAdjacencia()
-        {
-            _lista = new List<Vertice>();
         }
         private void CriarLista(StreamReader arq)
         {
@@ -86,16 +26,23 @@ namespace TP_Grafos
             for (int i = 0; i < int.Parse(valores[0]); i++)
             {
                 _lista.Add(new Vertice(i + 1));
+                _listaND.Add(new Vertice(i + 1));
             }
             linha = arq.ReadLine();
             while (linha != null)
             {
                 valores = linha.Split(" ");
                 Aresta novaAresta = new Aresta(int.Parse(valores[0]), int.Parse(valores[1]), int.Parse(valores[2]), int.Parse(valores[3]));
-                _lista.ElementAt(int.Parse(valores[0]) - 1).AddAresta(novaAresta);
+                _lista[int.Parse(valores[0]) - 1].AddAresta(novaAresta); 
+                _listaND[int.Parse(valores[0]) - 1].AddAresta(novaAresta);  
+                _listaND[int.Parse(valores[1]) - 1].AddAresta(new Aresta(int.Parse(valores[1]), int.Parse(valores[0]), int.Parse(valores[2]), int.Parse(valores[3])));
                 linha = arq.ReadLine();
             }
             arq.Close();
+        }
+        public ListaAdjacencia()
+        {
+            _lista = new List<Vertice>();
         }
         public ListaAdjacencia(int quantVerts, List<Aresta> arestas)
         {
@@ -171,6 +118,18 @@ namespace TP_Grafos
             }
             return arestas;
         }
+        public List<Aresta> GetArestasND()
+        {
+            List<Aresta> arestas = new List<Aresta>();
+            foreach (Vertice v in _listaND)
+            {
+                foreach (Aresta a in v.GetArestas())
+                {
+                    arestas.Add(a);
+                }
+            }
+            return arestas;
+        }
 
         public LinkedList<Aresta> GetArestasIncidentes(int numVertice)
         {
@@ -188,5 +147,72 @@ namespace TP_Grafos
                 Console.WriteLine();
             }
         }
+        public int GetGrauSaida(int vertice)
+        {
+            return _lista[vertice - 1].GrauSaida();
+        }
+        public int GetGrauEntrada(int vertice)
+        {
+            int count = 0;
+            foreach (Vertice v in _lista) {
+                foreach (Aresta a in v.GetArestas()) {
+                    if (a.GetSucessor() == vertice)
+                        count++;
+                }
+            }
+            return count;
+        }
+        /*
+public void BuscarEmProfundidade()
+{
+    TempoGlobal = 0;
+
+    int[,] resultados = new int[3, GetQuantVertices()]; // -1 pra null
+    for (int i = 0; i < resultados.GetLength(1); i++)
+    {
+        resultados[2, i] = -1;
+    }
+
+    // p/ cada vértice v, se seu TD = 0, chama BuscaProfundidade(v)
+    for (int i = 0; i < resultados.GetLength(1); i++)
+    {
+        if (resultados[0, i] == 0)
+            BuscaProfundidade(i + 1, resultados);
+    }
+}
+private void BuscaProfundidade(int vertice, int[,] resultados)
+{
+    TempoGlobal++;
+    resultados[0, vertice - 1] = TempoGlobal;
+
+    LinkedList<Aresta> arestasIncidentes = GetArestasIncidentes(vertice);
+
+    foreach (Aresta a in arestasIncidentes)
+    {
+        if (resultados[0, a.GetSucessor() - 1] == 0)
+        {
+            a.DefinirTipo("arvore");
+            resultados[2, a.GetSucessor() - 1] = vertice;
+            BuscaProfundidade(a.GetSucessor(), resultados);
+        }
+        else
+        {
+            if (resultados[1, a.GetSucessor() - 1] == 0)
+            {
+                a.DefinirTipo("retorno");
+            }
+            else if (resultados[0, vertice - 1] < resultados[0, a.GetSucessor() - 1])
+            {
+                a.DefinirTipo("avanco");
+            }
+            else
+            {
+                a.DefinirTipo("cruzamento");
+            }
+        }
+    }
+    TempoGlobal++; resultados[1, vertice - 1] = TempoGlobal;
+}
+*/
     }
 }

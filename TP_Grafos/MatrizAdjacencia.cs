@@ -135,6 +135,26 @@ namespace TP_Grafos
             }
             return arestas;
         }
+        public int GetGrauSaida(int vertice)
+        {
+            int count = 0;
+            for (int i = 0; i < _matriz.GetLength(0); i++)
+            {
+                if (_matriz[vertice - 1, i] != null)
+                    count++;
+            }
+            return count;
+        }
+        public int GetGrauEntrada(int vertice)
+        {
+            int count = 0;
+            for (int i = 0; i < _matriz.GetLength(0); i++)
+            {
+                if (_matriz[i, vertice - 1] != null)
+                    count++;
+            }
+            return count;
+        }
         public void BuscarEmProfundidade()
         {
             TempoGlobal = 0;
