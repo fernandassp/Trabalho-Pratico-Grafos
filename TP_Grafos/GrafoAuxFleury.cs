@@ -52,7 +52,9 @@ namespace TP_Grafos
                 // escolher uma que não seja ponte 
                 if (arestasSaindo.Count > 1)
                 {
-                    arestaEscolhida = EscolherArestaNaoPonte(arestasRestantes, verticeAtual, arestasSaindo);
+                    // alterado só pra compilar
+                    //arestaEscolhida = EscolherArestaNaoPonte(arestasRestantes, verticeAtual, arestasSaindo);
+                    arestaEscolhida = null;
                 }
                 else
                 {

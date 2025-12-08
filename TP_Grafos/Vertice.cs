@@ -59,5 +59,8 @@ namespace TP_Grafos
         public int GetGrau() {
             return _grau;
         }
+        public int GetCor() {
+            return _cor;
+        }
     }
 }

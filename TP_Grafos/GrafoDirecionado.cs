@@ -48,7 +48,7 @@ namespace TP_Grafos
             foreach (int vertice in explorados)
             {
 
-                LinkedList<Aresta> incidentes = _armazenamento.GetArestasIncidentes(vertice);
+                List<Aresta> incidentes = _armazenamento.GetArestasIncidentes(vertice);
 
                 foreach (Aresta incidente in incidentes)
                 {
@@ -313,13 +313,11 @@ namespace TP_Grafos
 
         public void WelshPowell() // alterar retorno
         {
-            
-            List<Vertice> ordenados = _armazenamento.GetVertices().OrderByDescending(v => v.GetGrau()).ToList();
+            List<Vertice> ordenados = _armazenamento.GetVerticesND().OrderByDescending(v => v.GetGrau()).ToList();
 
             List<int> cores = new List<int>();
             cores.Add(1);
             int corAtual = cores[0];
-
             ordenados[0].Colorir(corAtual); //colore com cor 1
             int c = 1;
             while (HaVerticesNaoColoridos(ordenados))
@@ -330,19 +328,36 @@ namespace TP_Grafos
                     if (!vAtual.Colorido())
                     {
                         List<Aresta> arestas = vAtual.GetArestas();
+                        bool pode = true;
                         foreach (Aresta aresta in arestas)
                         {
-                            if ()
+
+                            Vertice sucessor = new Vertice(9999);
+                            foreach (Vertice v in ordenados) {
+                                if (v.GetNumero() == aresta.GetSucessor()) {
+                                    sucessor = v;
+                                }
+
+                            }
+                            if (sucessor.GetCor()==corAtual)
                             {
+                                pode=false;
+                                break;
                                 //se vértice atual não é adjacente a algum que está colorido, usa a cor atual
                             }
                         }
+                        if(pode)
+                            vAtual.Colorir(corAtual);
                     }
                 }
 
                 c++;
                 cores.Add(c);
                 corAtual = cores[c-1];
+            }
+            Console.WriteLine("quantidade de cores: "+ (cores.Count-1));
+            foreach (Vertice v in ordenados) {
+                Console.WriteLine(v.GetNumero()+" cor: "+ v.GetCor());
             }
             
         }

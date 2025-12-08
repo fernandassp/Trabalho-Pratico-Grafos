@@ -119,10 +119,10 @@ namespace TP_Grafos
             return arestas;
         }
 
-        public List<Vertice> GetVertices() // NAO DIR
+        public List<Vertice> GetVerticesND() // NAO DIR
         {
             List<Vertice> vertices = new List<Vertice>();
-            int i = 1, j = 1;
+            int i = 1;
             foreach (Vertice v in _listaND)
             {
                 v.SetGrau(GetGrauEntrada(i) + GetGrauSaida(i));
@@ -131,7 +131,8 @@ namespace TP_Grafos
                 {
                     novo.AddAresta(a);
                 }
-                i++; j++;
+                vertices.Add(novo);
+                i++;
             }
 
             return vertices;
@@ -149,7 +150,7 @@ namespace TP_Grafos
             return arestas;
         }
 
-        public LinkedList<Aresta> GetArestasIncidentes(int numVertice)
+        public List<Aresta> GetArestasIncidentes(int numVertice)
         {
             return _lista[numVertice - 1].GetArestas();
         }

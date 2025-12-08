@@ -97,7 +97,7 @@ namespace TP_Grafos
             }
             return arestas;
         }  
-        public List<Vertice> GetVertices() //NAO DIR
+        public List<Vertice> GetVerticesND() //NAO DIR
         {
             List<Vertice> vertices = new List<Vertice>();
             for (int i = 0; i < _matrizND.GetLength(0); i++)
@@ -111,6 +111,7 @@ namespace TP_Grafos
                         novo.AddAresta(_matrizND[i, j]);
                     }
                 }
+                Console.WriteLine("vertice nd: "+(i+1));
             }
             return vertices;
         }
@@ -139,15 +140,15 @@ namespace TP_Grafos
             return _quantArestas;
         }
 
-        public LinkedList<Aresta> GetArestasIncidentes(int numVertice)
+        public List<Aresta> GetArestasIncidentes(int numVertice)
         {
             numVertice--;
-            LinkedList<Aresta> arestas = new LinkedList<Aresta>();
+            List<Aresta> arestas = new List<Aresta>();
             for (int w = 0; w < _matriz.GetLength(0); w++)
             {
                 if (_matriz[numVertice, w] != null)
                 {
-                    arestas.AddLast(_matriz[numVertice, w]);
+                    arestas.Add(_matriz[numVertice, w]);
                 }
             }
             return arestas;

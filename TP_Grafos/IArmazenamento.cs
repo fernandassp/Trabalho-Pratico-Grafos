@@ -56,13 +56,13 @@ namespace TP_Grafos
         public List<Aresta> GetArestas();
         public int GetQuantArestas();
         public int GetQuantVertices();
-        public LinkedList<Aresta> GetArestasIncidentes(int numVertice);
+        public List<Aresta> GetArestasIncidentes(int numVertice);
 
         public List<Aresta> GetArestasND();
         public int GetGrauSaida(int vertice);  
         public int GetGrauEntrada(int vertice);
 
-        public List<Vertice> GetVertices();
+        public List<Vertice> GetVerticesND();
 
 
     }
