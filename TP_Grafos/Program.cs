@@ -164,7 +164,7 @@
                             }
                             else if(testeHamiltoniano == "pode ser")
                             {
-                                Console.WriteLine("Inconclusivo - pode ser");
+                                Console.WriteLine("Inconclusivo - pode ser"); // mudar isso aqui
                             }
                             else
                             {
