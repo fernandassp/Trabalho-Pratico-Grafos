@@ -154,6 +154,24 @@
                                 Console.WriteLine("Não é possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.");
                                 arquivoLog.WriteLine("Não é possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.");
                             }
+                            Console.WriteLine($"\nB) Percurso de Hubs");
+                            arquivoLog.WriteLine($"\nB) Percurso de Hubs");
+
+                            string testeHamiltoniano = rede.CondicaoSuficienteHamiltoniano();
+                            if(testeHamiltoniano == "é")
+                            {
+                                Console.WriteLine("É possível visitar todos os hubs exatamente uma vez e retornar ao hub inicial.");
+                            }
+                            else if(testeHamiltoniano == "pode ser")
+                            {
+                                Console.WriteLine("Inconclusivo - pode ser");
+                            }
+                            else
+                            {
+                                Console.WriteLine("Não é possível visitar todos os hubs exatamente uma vez e retornar ao hub inicial.");
+                            }
+
+
                                 i++;
                         }
 

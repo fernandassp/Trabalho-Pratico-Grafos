@@ -311,6 +311,45 @@ namespace TP_Grafos
             return null;
         }
 
+
+
+        public string CondicaoSuficienteHamiltoniano()
+        {
+            //se não for forte, não há ciclo hamiltoniano.
+         
+            GrafoAuxFleury grafoAux = new GrafoAuxFleury(GetQuantVertices(), GetArestas());
+            if (!FortementeConexo(grafoAux))
+            {
+                return "não é";
+            }
+           
+            foreach(Vertice v in grafoAux.Vertices())
+            {
+                if(_armazenamento.GetGrauSaida(v.GetNumero()) == 0 || _armazenamento.GetGrauEntrada(v.GetNumero()) == 0)
+                {
+                    return "não é";
+                }
+            }
+            // entrada + saida >= n: é (mas pode ser e nao atender a isso - suficiente mas nao necessario)
+            bool valeTodos = true;
+            foreach(Vertice v in grafoAux.Vertices())
+            {
+                if (_armazenamento.GetGrauSaida(v.GetNumero()) + _armazenamento.GetGrauEntrada(v.GetNumero()) < GetQuantVertices())
+                {
+                    valeTodos = false;
+                }
+            }
+
+            if (valeTodos)
+                return "é";
+            else
+            {
+                return "pode ser";
+            }
+
+        }
+
+
         public void WelshPowell() // alterar retorno
         {
             List<Vertice> ordenados = _armazenamento.GetVerticesND().OrderByDescending(v => v.GetGrau()).ToList();
@@ -343,7 +382,6 @@ namespace TP_Grafos
                             {
                                 pode=false;
                                 break;
-                                //se vértice atual não é adjacente a algum que está colorido, usa a cor atual
                             }
                         }
                         if(pode)
@@ -372,6 +410,131 @@ namespace TP_Grafos
                 }
             }
             return false;
+        }
+
+
+        // --------------- sugestão deepseek
+        public bool EhHamiltoniano(out List<int> cicloHamiltoniano)
+        {
+            cicloHamiltoniano = new List<int>();
+
+
+            // Grau mínimo de entrada e saída deve ser pelo menos n/2 para garantir hamiltoniano (Teorema de Dirac)
+            // Mas para um algoritmo exato, vamos usar backtracking
+
+            int n = GetQuantVertices();
+
+            // Inicia o array para armazenar o caminho
+            int[] caminho = new int[n];
+            for (int i = 0; i < n; i++)
+                caminho[i] = -1;
+
+            // Começa do vértice 1
+            caminho[0] = 1;
+
+            // Array para marcar vértices já visitados
+            bool[] visitado = new bool[n + 1];
+            visitado[1] = true;
+
+            // Tenta completar o ciclo começando do vértice 1
+            if (!BuscarCicloHamiltoniano(1, caminho, visitado, 1))
+            {
+                cicloHamiltoniano = null;
+                return false;
+            }
+
+            // Converte o array para lista
+            cicloHamiltoniano = new List<int>(caminho);
+            // Adiciona o primeiro vértice no final para formar ciclo completo
+            cicloHamiltoniano.Add(caminho[0]);
+
+            return true;
+        }
+
+        private bool BuscarCicloHamiltoniano(int pos, int[] caminho, bool[] visitado, int contador)
+        {
+            int n = GetQuantVertices();
+
+            // Se todos os vértices foram incluídos no caminho
+            if (contador == n)
+            {
+                // Verifica se há aresta do último vértice para o primeiro
+                int ultimoVertice = caminho[pos - 1];
+                int primeiroVertice = caminho[0];
+
+                // Verifica se existe aresta do último para o primeiro
+                List<Aresta> arestasUltimo = _armazenamento.GetArestasIncidentes(ultimoVertice);
+                foreach (Aresta a in arestasUltimo)
+                {
+                    if (a.GetSucessor() == primeiroVertice)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            // Tenta todos os vértices como próximo candidato
+            for (int v = 1; v <= n; v++)
+            {
+                // Verifica se pode adicionar v ao caminho
+                if (PodeAdicionarAoHamiltoniano(caminho[pos - 1], v, visitado))
+                {
+                    caminho[pos] = v;
+                    visitado[v] = true;
+
+                    // Recursão
+                    if (BuscarCicloHamiltoniano(pos + 1, caminho, visitado, contador + 1))
+                        return true;
+
+                    // Backtracking
+                    caminho[pos] = -1;
+                    visitado[v] = false;
+                }
+            }
+
+            return false;
+        }
+
+        private bool PodeAdicionarAoHamiltoniano(int atual, int proximo, bool[] visitado)
+        {
+            // Se o vértice já foi visitado, não pode
+            if (visitado[proximo])
+                return false;
+
+            // Verifica se existe aresta de 'atual' para 'proximo'
+            List<Aresta> arestasAtual = _armazenamento.GetArestasIncidentes(atual);
+            foreach (Aresta a in arestasAtual)
+            {
+                if (a.GetSucessor() == proximo)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public string VerificarEExibirHamiltoniano()
+        {
+            List<int> ciclo;
+
+            if (EhHamiltoniano(out ciclo))
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine("O grafo É hamiltoniano!");
+                sb.AppendLine("Ciclo Hamiltoniano encontrado:");
+
+                for (int i = 0; i < ciclo.Count - 1; i++)
+                {
+                    sb.Append(ciclo[i] + " → ");
+                }
+                sb.AppendLine(ciclo[ciclo.Count - 1].ToString());
+
+                return sb.ToString();
+            }
+            else
+            {
+                return "O grafo NÃO é hamiltoniano.";
+            }
         }
     }
 }
