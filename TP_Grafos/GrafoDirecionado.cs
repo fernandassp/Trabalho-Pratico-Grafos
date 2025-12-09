@@ -260,7 +260,7 @@ namespace TP_Grafos
             sb.AppendLine();
             return sb.ToString();
         }
-        public List<int> MetodoFleury()
+        public List<int> MetodoFleury(StreamWriter arquivoLog)
         {
             GrafoAuxFleury auxFleury = new GrafoAuxFleury(GetQuantVertices(), GetArestas());
 
@@ -272,11 +272,14 @@ namespace TP_Grafos
                 // se retornou lista, é garantido que é um ciclo euleriano
                 Console.WriteLine("É possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.");
                 Console.WriteLine("\nSequência de visita proposta:");
+                arquivoLog.WriteLine("É possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.");
+                arquivoLog.WriteLine("\nSequência de visita proposta:");
                 return ciclo;
             }
             else
             {
-                Console.WriteLine("Não é possível percorrer todas as rotas e retornar ao ponto de partida.");
+                Console.WriteLine("Não é possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.");
+                arquivoLog.WriteLine("Não é possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.");
                 return null;
             }
         }

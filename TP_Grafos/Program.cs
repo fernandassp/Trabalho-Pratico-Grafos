@@ -62,26 +62,35 @@
 
                             int[,] distancias = rede.DijkstraEntre(origem, destino);
                             int distancia = distancias[0, destino-1];
-                            Stack<int> rotaEncontrada = new Stack<int>();
-                            rotaEncontrada.Push(destino);
-                            int atual = distancias[1,destino-1];
-                            while (atual != origem)
+                            if(distancia != int.MaxValue)
                             {
-                                rotaEncontrada.Push(atual);
-                                atual = distancias[1,atual-1];
+                                Stack<int> rotaEncontrada = new Stack<int>();
+                                rotaEncontrada.Push(destino);
+                                int atual = distancias[1, destino - 1];
+                                while (atual != origem)
+                                {
+                                    rotaEncontrada.Push(atual);
+                                    atual = distancias[1, atual - 1];
+                                }
+                                rotaEncontrada.Push(origem);
+                                for (int x = 0; x < rotaEncontrada.Count; x++)
+                                {
+                                    int hubAtual = rotaEncontrada.Pop();
+                                    Console.Write($"Hub {hubAtual} -> ");
+                                    arquivoLog.Write($"Hub {hubAtual} -> ");
+                                }
+                                Console.WriteLine($"Hub {destino}.");
+                                arquivoLog.WriteLine($"Hub {destino}.");
+                                Console.WriteLine($"A distância entre os hubs {origem} e {destino} é: {distancia}.");
+                                arquivoLog.WriteLine($"A distância entre os hubs {origem} e {destino} é: {distancia}.");
                             }
-                            rotaEncontrada.Push(origem);
-                            for (int x =0; x<rotaEncontrada.Count; x++)
+                            else
                             {
-                                int hubAtual = rotaEncontrada.Pop();
-                                Console.Write($"Hub {hubAtual} -> ");
-                                arquivoLog.Write($"Hub {hubAtual} -> ");
+                                Console.WriteLine("Não há caminho entre a origem e o destino informados.");
+                                arquivoLog.WriteLine("Não há caminho entre a origem e o destino informados.");
                             }
-                            Console.WriteLine($"Hub {destino}.");
-                            arquivoLog.WriteLine($"Hub {destino}.");
-                            Console.WriteLine($"A distância entre os hubs {origem} e {destino} é: {distancia}.");
-                            arquivoLog.WriteLine($"A distância entre os hubs {origem} e {destino} é: {distancia}.");
-                            i++;
+
+                                i++;
                         }
                         arquivoLog.WriteLine("--------------------\n");
                         break;
@@ -144,17 +153,13 @@
                             Console.WriteLine($"\n\tGRAFO {i}\n");
                             Console.WriteLine($"A) Percurso de rotas");
                             arquivoLog.WriteLine($"A) Percurso de rotas");
-                            List<int> ciclo = rede.MetodoFleury();
+                            List<int> ciclo = rede.MetodoFleury(arquivoLog);
                             if(ciclo != null)
                             {
                                 Console.WriteLine(rede.ImprimirCicloFleury(ciclo));
                                 arquivoLog.WriteLine(rede.ImprimirCicloFleury(ciclo));
                             }
-                            else
-                            {
-                                Console.WriteLine("Não é possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.");
-                                arquivoLog.WriteLine("Não é possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.");
-                            }
+
                             Console.WriteLine($"\nB) Percurso de Hubs");
                             arquivoLog.WriteLine($"\nB) Percurso de Hubs");
 

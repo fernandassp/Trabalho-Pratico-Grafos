@@ -1,0 +1,239 @@
+		-->Execução - 09/12/2025 13:21:42
+
+
+
+----- Roteamento de menor custo -----
+
+
+	GRAFO 1
+
+Hub 1 -> Hub 2.
+A distância entre os hubs 1 e 2 é: 2.
+
+	GRAFO 2
+
+Hub 1 -> Hub 2.
+A distância entre os hubs 1 e 2 é: 4.
+
+	GRAFO 3
+
+Hub 1 -> Hub 2.
+A distância entre os hubs 1 e 2 é: 3.
+
+	GRAFO 4
+
+Não há caminho entre a origem e o destino informados.
+
+	GRAFO 5
+
+Não há caminho entre a origem e o destino informados.
+
+	GRAFO 6
+
+Hub 10 -> Hub 31 -> Hub 12.
+A distância entre os hubs 10 e 12 é: 26.
+
+	GRAFO 7
+
+Hub 3 -> Hub 99 -> Hub 5.
+A distância entre os hubs 3 e 5 é: 23.
+--------------------
+
+
+----- Capacidade Máxima de Escoamento -----
+
+
+	GRAFO 1
+
+O fluxo máximo entre 2 e 3 é 6
+
+	GRAFO 2
+
+O fluxo máximo entre 1 e 3 é 13
+
+	GRAFO 3
+
+O fluxo máximo entre 1 e 5 é 17
+
+	GRAFO 4
+
+O fluxo máximo entre 2 e 7 é 12
+
+	GRAFO 5
+
+O fluxo máximo entre 4 e 8 é 21
+
+	GRAFO 6
+
+O fluxo máximo entre 4 e 5 é 33
+
+	GRAFO 7
+
+O fluxo máximo entre 1 e 7 é 0
+--------------------
+
+
+----- Expansão da Rede de Comunicação -----
+
+
+	GRAFO 1
+
+Custo total: 12
+1->4 1->2 4->5 1->3 5->6 
+
+	GRAFO 2
+
+Custo total: 14
+2->3 3->4 1->2 4->5 
+
+	GRAFO 3
+
+Custo total: 26
+4->6 1->2 6->8 3->6 5->7 2->4 7->8 
+
+	GRAFO 4
+
+Custo total: 41
+8->10 6->8 3->5 4->8 1->2 2->6 5->7 2->3 9->10 
+
+	GRAFO 5
+
+Custo total: 28
+1->2 2->3 5->7 3->5 3->6 7->9 2->8 9->10 1->4 
+
+	GRAFO 6
+
+Custo total: 363
+19->33 36->50 36->10 36->44 36->19 36->25 26->14 29->45 48->3 1->24 3->28 15->30 27->34 27->4 27->31 27->49 29->40 29->20 29->35 29->44 30->16 30->23 30->4 30->47 38->12 40->31 40->41 40->28 46->15 7->29 22->36 22->21 25->1 25->38 27->18 28->5 28->39 35->6 35->17 41->26 43->41 11->32 11->1 39->2 14->42 32->9 37->14 15->46 35->13 
+
+	GRAFO 7
+
+Custo total: 775
+20->9 24->34 24->51 24->34 24->51 24->34 24->51 24->34 33->6 55->78 55->17 55->78 55->17 55->78 55->17 55->78 55->17 57->32 79->69 79->60 79->69 79->60 79->69 79->60 79->69 79->60 88->71 88->47 88->49 88->47 88->49 88->47 88->49 88->47 96->48 96->4 96->48 96->4 96->48 96->4 96->48 24->14 58->29 58->83 58->84 58->83 58->84 58->83 58->84 58->83 75->42 81->53 81->65 81->53 81->65 81->53 81->65 81->53 81->65 89->61 89->33 89->61 89->33 89->61 89->33 89->61 89->33 96->15 97->7 97->28 97->7 97->28 97->7 97->28 97->7 3->36 3->99 3->36 3->99 3->36 3->99 3->36 11->40 11->32 11->54 11->32 11->54 11->32 11->54 11->32 40->50 56->70 56->79 56->86 56->79 56->86 56->79 56->86 56->79 
+--------------------
+
+
+----- Agendamento de Manutenções sem Conflito -----
+
+
+	GRAFO 1
+
+Quantidade de turnos necessários: 3
+Hubs do Turno 1: 1 6 
+Hubs do Turno 2: 2 4 
+Hubs do Turno 3: 3 5 
+
+
+	GRAFO 2
+
+Quantidade de turnos necessários: 3
+Hubs do Turno 1: 1 4 
+Hubs do Turno 2: 2 
+Hubs do Turno 3: 3 5 
+
+
+	GRAFO 3
+
+Quantidade de turnos necessários: 3
+Hubs do Turno 1: 1 4 5 8 
+Hubs do Turno 2: 2 3 7 
+Hubs do Turno 3: 6 
+
+
+	GRAFO 4
+
+Quantidade de turnos necessários: 3
+Hubs do Turno 1: 1 3 6 9 
+Hubs do Turno 2: 2 4 5 10 
+Hubs do Turno 3: 7 8 
+
+
+	GRAFO 5
+
+Quantidade de turnos necessários: 6
+Hubs do Turno 1: 1 6 7 
+Hubs do Turno 2: 2 5 
+Hubs do Turno 3: 3 4 
+Hubs do Turno 4: 8 
+Hubs do Turno 5: 9 
+Hubs do Turno 6: 10 
+
+
+	GRAFO 6
+
+Quantidade de turnos necessários: 7
+Hubs do Turno 1: 1 2 3 4 5 6 7 8 9 17 19 26 38 50 
+Hubs do Turno 2: 10 11 12 13 15 16 18 20 28 34 
+Hubs do Turno 3: 14 21 23 24 27 29 32 33 
+Hubs do Turno 4: 22 25 30 31 39 48 
+Hubs do Turno 5: 35 36 37 40 42 43 45 
+Hubs do Turno 6: 41 44 46 47 
+Hubs do Turno 7: 49 
+
+
+	GRAFO 7
+
+Quantidade de turnos necessários: 4
+Hubs do Turno 1: 1 2 3 4 5 6 8 9 11 12 13 14 15 16 18 19 21 22 23 25 26 27 28 29 31 42 43 45 47 51 52 53 55 56 60 61 62 64 65 66 69 74 87 94 100 
+Hubs do Turno 2: 7 10 17 20 24 32 33 35 36 37 38 39 40 41 48 58 59 63 70 71 77 78 79 81 86 90 91 98 99 
+Hubs do Turno 3: 30 34 44 46 50 54 57 67 68 72 75 76 80 82 83 84 85 88 89 93 95 96 97 
+Hubs do Turno 4: 49 73 92 
+
+--------------------
+
+
+----- Rota Única de Inspeção -----
+
+
+	GRAFO 1
+
+A) Percurso de rotas
+Não é possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.
+
+B) Percurso de Hubs
+
+	GRAFO 2
+
+A) Percurso de rotas
+Não é possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.
+
+B) Percurso de Hubs
+
+	GRAFO 3
+
+A) Percurso de rotas
+Não é possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.
+
+B) Percurso de Hubs
+
+	GRAFO 4
+
+A) Percurso de rotas
+Não é possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.
+
+B) Percurso de Hubs
+
+	GRAFO 5
+
+A) Percurso de rotas
+Não é possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.
+
+B) Percurso de Hubs
+
+	GRAFO 6
+
+A) Percurso de rotas
+Não é possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.
+
+B) Percurso de Hubs
+
+	GRAFO 7
+
+A) Percurso de rotas
+Não é possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.
+
+B) Percurso de Hubs
+--------------------
+
+* 2 vértices adicionados à rede 1.
+* Rede modificada com sucesso.
