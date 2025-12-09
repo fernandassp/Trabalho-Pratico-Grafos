@@ -181,41 +181,72 @@
                         Console.WriteLine("O programa será encerrado.");
                         break;
                     case 7:
-                        GrafoDirecionado redeModificar = CriarRede("redeTesteMudar.txt");
-
-                        Console.WriteLine("Adicionar vértices? (s/n)");
-                        char resp = char.Parse(Console.ReadLine().ToLower());
-                        if(resp == 's')
+                        GrafoDirecionado redeModificar = rede1; // só pra inicializar
+                        Console.WriteLine("Digite o número da rede que deseja alterar (1 a 7):");
+                        int numRede = int.Parse(Console.ReadLine());
+                        switch (numRede)
                         {
-                            Console.WriteLine("Quantos vértices adicionar?");
-                            int quant = int.Parse(Console.ReadLine());
-                            for (int y = 0; y < quant; y++)
-                            {
-                                redeModificar.AdicionarVertice();
-                            }
+                            case 1:
+                                redeModificar = rede1;
+                                break;
+                            case 2:
+                                redeModificar = rede2;
+                                break;
+                            case 3:
+                                redeModificar = rede3;
+                                break;
+                            case 4:
+                                redeModificar = rede4;
+                                break;
+                            case 5:
+                                redeModificar = rede5;
+                                break;
+                            case 6:
+                                redeModificar = rede6;
+                                break;
+                            case 7:
+                                redeModificar = rede7;
+                                break;
+                            default:
+                                Console.WriteLine("Não há rede cadastrada com a numeração digitada.");
+                                break;
                         }
-
-                        Console.WriteLine("Adicionar arestas? (s/n)");
-                        resp = char.Parse(Console.ReadLine().ToLower());
-                        if (resp == 's')
+                        if(numRede >= 1 && numRede <= 7)
                         {
-                            Console.WriteLine("Quantas arestas adicionar?");
-                            int quant = int.Parse(Console.ReadLine());
-                            for (int y = 0; y < quant; y++)
+                            Console.WriteLine("Adicionar vértices? (s/n)");
+                            char resp = char.Parse(Console.ReadLine().ToLower());
+                            if (resp == 's')
                             {
-                                Console.WriteLine("Informe o número do vértice V da aresta:");
-                                int vertV = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Informe o número do vértice W da aresta:");
-                                int vertW = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Informe o peso da aresta:");
-                                int peso = int.Parse(Console.ReadLine());
-                                Console.WriteLine("Informe a capacidade da aresta:");
-                                int capacidade = int.Parse(Console.ReadLine());
-                                redeModificar.AdicionarAresta(vertV, vertW, peso, capacidade);
+                                Console.WriteLine("Quantos vértices adicionar?");
+                                int quant = int.Parse(Console.ReadLine());
+                                for (int y = 0; y < quant; y++)
+                                {
+                                    redeModificar.AdicionarVertice();
+                                }
                             }
-                        }
 
-                        Console.WriteLine($"Quant vertices grafo: {redeModificar.GetQuantVertices()}");
+                            Console.WriteLine("Adicionar arestas? (s/n)");
+                            resp = char.Parse(Console.ReadLine().ToLower());
+                            if (resp == 's')
+                            {
+                                Console.WriteLine("Quantas arestas adicionar?");
+                                int quant = int.Parse(Console.ReadLine());
+                                for (int y = 0; y < quant; y++)
+                                {
+                                    Console.WriteLine("Informe o número do vértice V da aresta:");
+                                    int vertV = int.Parse(Console.ReadLine());
+                                    Console.WriteLine("Informe o número do vértice W da aresta:");
+                                    int vertW = int.Parse(Console.ReadLine());
+                                    Console.WriteLine("Informe o peso da aresta:");
+                                    int peso = int.Parse(Console.ReadLine());
+                                    Console.WriteLine("Informe a capacidade da aresta:");
+                                    int capacidade = int.Parse(Console.ReadLine());
+                                    redeModificar.AdicionarAresta(vertV, vertW, peso, capacidade);
+                                }
+                            }
+
+                            Console.WriteLine($"Rede modificada com sucesso.");
+                        }
                         break;
                     default:
                         Console.WriteLine("Opção inválida. Escolha de 1 a 6.");
