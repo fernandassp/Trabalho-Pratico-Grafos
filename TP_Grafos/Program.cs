@@ -223,6 +223,7 @@
                                 {
                                     redeModificar.AdicionarVertice();
                                 }
+                                arquivoLog.WriteLine($"* {quant} vértices adicionados à rede {numRede}.");
                             }
 
                             Console.WriteLine("Adicionar arestas? (s/n)");
@@ -242,10 +243,13 @@
                                     Console.WriteLine("Informe a capacidade da aresta:");
                                     int capacidade = int.Parse(Console.ReadLine());
                                     redeModificar.AdicionarAresta(vertV, vertW, peso, capacidade);
+
+                                    arquivoLog.WriteLine($"* Aresta ({vertV}, {vertW}) adicionada à rede {numRede}.");
                                 }
                             }
 
                             Console.WriteLine($"Rede modificada com sucesso.");
+                            arquivoLog.WriteLine("* Rede modificada com sucesso.");
                         }
                         break;
                     default:
