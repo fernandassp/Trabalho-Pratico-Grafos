@@ -105,7 +105,7 @@
                         }
                         arquivoLog.WriteLine("--------------------\n");
                         break;
-                    case 3:  //ver de mudar pra kruskal; problema do Prim
+                    case 3: 
                         arquivoLog.WriteLine("\n----- Expansão da Rede de Comunicação -----\n");
                         i = 1;
                         foreach(GrafoDirecionado rede in redes)
@@ -119,7 +119,7 @@
                         }
                         arquivoLog.WriteLine("--------------------\n");
                         break;
-                    case 4: // coloração - welsh powell
+                    case 4: 
                         arquivoLog.WriteLine("\n----- Agendamento de Manutenções sem Conflito -----\n");
                         i = 1;
                         foreach(GrafoDirecionado rede in redes)
@@ -134,9 +134,10 @@
 
                         arquivoLog.WriteLine("--------------------\n");
                         break;
-                    case 5: // euleriano: fleury
+                    case 5: 
                         arquivoLog.WriteLine("\n----- Rota Única de Inspeção -----\n");
                         i = 1;
+
                         foreach(GrafoDirecionado rede in redes)
                         {
                             arquivoLog.WriteLine($"\n\tGRAFO {i}\n");
