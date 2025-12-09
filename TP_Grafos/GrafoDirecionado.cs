@@ -114,7 +114,7 @@ namespace TP_Grafos
             List<ArestaResidual>[] adj = new List<ArestaResidual>[n + 1];
             for (int i = 0; i <= n; i++) adj[i] = new List<ArestaResidual>();
 
-            // constroi a rede residual G’(f)
+            // constroi a rede residual G'(f)
             foreach (Aresta aresta in GetArestas())
             {
                 int w = aresta.GetAntecessor();
@@ -133,7 +133,7 @@ namespace TP_Grafos
             int fluxoMaximo = 0;
             int[] nivel = new int[n + 1];
 
-            // constroi a rede em níveis GL a partir de G’(f)
+            // constroi a rede em níveis GL a partir de G'(f)
             while (BuscaLarguraDinic(s, t, adj, nivel))
             {
                 // array q controla a próxima aresta a ser visitada
@@ -233,47 +233,9 @@ namespace TP_Grafos
                 }
                 arestaVez++;
             }
-            resultado= "peso total: "+ pesoTotal + "\n" + resultado;
+            resultado= "Custo total: "+ pesoTotal + "\n" + resultado;
             return resultado;
         }
-
-        public Agm Prim()
-        {
-
-            Agm agm = new Agm();
-            Vertice raiz = new Vertice(1);
-            agm.AddVertice(raiz);
-
-            while (agm.QuantVertices() != _armazenamento.GetQuantVertices())
-            {
-                //encontrar menor aresta v,w em que v ta em v(t) e w nao
-                Aresta menorAresta = ArestaMenorPesoPrim(agm);
-                Vertice novoVertice = new Vertice(menorAresta.GetSucessor());
-                novoVertice.AddAresta(menorAresta);
-                agm.AddVertice(novoVertice);
-                agm.AddAresta(menorAresta);
-            }
-
-            return agm;
-
-        }
-
-        private Aresta ArestaMenorPesoPrim(Agm agm)
-        {
-            int menor = int.MaxValue;
-            Aresta menorAresta = GetArestas().ElementAt(0);
-            foreach (Aresta a in GetArestas())
-            {
-                if (a.GetPeso() < menor && agm.ContemOVertice(a.GetAntecessor()) && !agm.ContemOVertice(a.GetSucessor()))
-                {
-                    menor = a.GetPeso();
-                    menorAresta = a;
-                }
-            }
-
-            return menorAresta;
-        }
-
         
         public bool FortementeConexo(GrafoAuxFleury grafo)
         {
@@ -397,9 +359,9 @@ namespace TP_Grafos
                 corAtual = cores[c-1];
             }
             cores.RemoveAt(cores.Count-1);
-            resultado += "quantidade de turnos: " + cores.Count+ "\n";
+            resultado += "Quantidade de turnos necessários: " + cores.Count+ "\n";
             foreach (int turno in cores) {
-                resultado += $"turno {turno}: ";
+                resultado += $"Hubs do Turno {turno}: ";
                 foreach (Vertice v in ordenados)
                 {
                     if (v.GetCor() == turno)
