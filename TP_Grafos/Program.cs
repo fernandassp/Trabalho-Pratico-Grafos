@@ -23,7 +23,7 @@
         }
         static void Main(string[] args)
         {
-            GrafoDirecionado rede1 = CriarRede("grafo01.txt");
+            GrafoDirecionado rede1 = CriarRede("grafo01.txt"); //
             GrafoDirecionado rede2 = CriarRede("grafo02.txt");
             GrafoDirecionado rede3 = CriarRede("grafo03.txt");
             GrafoDirecionado rede4 = CriarRede("grafo04.txt");
@@ -31,7 +31,7 @@
             GrafoDirecionado rede6 = CriarRede("grafo06.txt");
             GrafoDirecionado rede7 = CriarRede("grafo07.txt");
 
-            List<GrafoDirecionado> redes = new List<GrafoDirecionado>(); //lista de grafos
+            List<GrafoDirecionado> redes = new List<GrafoDirecionado>();
             redes.Add(rede1); redes.Add(rede2); redes.Add(rede3); redes.Add(rede4); redes.Add(rede5);
             redes.Add(rede6); redes.Add(rede7);
             int quantGrafos = redes.Count;
@@ -165,7 +165,7 @@
                             }
                             else if(testeHamiltoniano == "pode ser")
                             {
-                                Console.WriteLine("Inconclusivo - pode ser"); // mudar isso aqui
+                                Console.WriteLine("Inconclusivo - pode ser possível visitar os hubs exatamente uma vez e retornar ao hub inicial.");
                             }
                             else
                             {
