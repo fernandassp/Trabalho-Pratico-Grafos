@@ -207,32 +207,34 @@ namespace TP_Grafos
             return 0;
         }
 
-        public AgmK AGM_Kruskal()
+        public string Kruskal()
         {
-            AgmK agm = new AgmK();
-
-            List<Aresta> ordenadas = new List<Aresta>(_armazenamento.GetArestas().OrderBy(a => a.GetPeso()));
-            
-            agm.AddVertices(GetQuantVertices());
-            
-
-            agm.AddAresta(ordenadas.ElementAt(0));
-
-            int j = 1;
             int quantVertices = _armazenamento.GetQuantVertices();
-            while (agm.GetArestasT().Count < quantVertices - 1 && j < ordenadas.Count)
-            {
-                Aresta nova = ordenadas.ElementAt(j);
-               
-                if (!agm.ContemAresta(nova) && !agm.ArestaFazCiclo(nova))
-                {
-                    Console.WriteLine("add");
-                    agm.AddAresta(nova);
-                }
-                j++;
-            }
+            int pesoTotal = 0;
+            string resultado = "";
 
-            return agm;
+            List<Aresta> arestas = _armazenamento.GetArestas().OrderBy(a=> a.GetPeso()).ToList();
+            MatrizAdjacencia matriz = new MatrizAdjacencia(quantVertices);
+            
+            matriz.AddArestaND(arestas[0]);
+            resultado += arestas[0].GetAntecessor() + "->" + arestas[0].GetSucessor()+" ";
+            pesoTotal += arestas[0].GetPeso();
+            int quantVezes= 1;
+            int arestaVez= 1;
+            while (quantVertices-1 > quantVezes) {
+                MatrizAdjacencia teste = new MatrizAdjacencia(matriz);
+                teste.AddArestaND(arestas[arestaVez]);
+                if (!teste.TemArestaDeRetorno())
+                {
+                    matriz = new MatrizAdjacencia(teste);
+                    quantVezes++;
+                    resultado += arestas[arestaVez].GetAntecessor() + "->" + arestas[arestaVez].GetSucessor()+" ";
+                    pesoTotal += arestas[arestaVez].GetPeso();
+                }
+                arestaVez++;
+            }
+            resultado= "peso total: "+ pesoTotal + "\n" + resultado;
+            return resultado;
         }
 
         public Agm Prim()
@@ -357,7 +359,7 @@ namespace TP_Grafos
             List<int> cores = new List<int>();
             cores.Add(1);
             int corAtual = cores[0];
-            ordenados[0].Colorir(corAtual); //colore com cor 1
+            ordenados[0].Colorir(corAtual);
             int c = 1;
             while (HaVerticesNaoColoridos(ordenados))
             {
@@ -393,7 +395,8 @@ namespace TP_Grafos
                 cores.Add(c);
                 corAtual = cores[c-1];
             }
-            Console.WriteLine("quantidade de cores: "+ (cores.Count-1));
+            cores.RemoveAt(cores.Count-1); 
+            Console.WriteLine("quantidade de cores: "+ (cores.Count));
             foreach (Vertice v in ordenados) {
                 Console.WriteLine(v.GetNumero()+" cor: "+ v.GetCor());
             }

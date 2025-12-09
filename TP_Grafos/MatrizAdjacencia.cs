@@ -16,9 +16,25 @@ namespace TP_Grafos
 
         static int TempoGlobal;
 
+        public MatrizAdjacencia(MatrizAdjacencia original)
+        {
+            int n = original._matrizND.GetLength(0);
+            _matrizND = new Aresta[n, n];
+
+            for (int i = 0; i < n; i++)
+                for (int j = 0; j < n; j++)
+                    _matrizND[i, j] = original._matrizND[i, j]; // cópia superficial é suficiente
+
+            _quantArestas = original._quantArestas;
+        }
         public MatrizAdjacencia(StreamReader arq)
         {
             CriarMatriz(arq);
+        }
+        public MatrizAdjacencia(int quantVertices)
+        {
+            _quantArestas = 0;
+            _matrizND = new Aresta[quantVertices,quantVertices];
         }
 
         private void CriarMatriz(StreamReader arq)
@@ -70,6 +86,12 @@ namespace TP_Grafos
         public void AddAresta(int vertA, int vertB, int peso, int capacidade)
         {
             _matriz[vertA - 1, vertB - 1] = new Aresta(vertA, vertB, peso, capacidade);
+            _quantArestas++;
+        }
+        public void AddArestaND(Aresta add)
+        {
+            _matrizND[add.GetAntecessor()-1, add.GetSucessor()-1] = add;
+            _matrizND[add.GetSucessor() - 1, add.GetAntecessor() - 1] = new Aresta(add.GetSucessor(), add.GetAntecessor(),add.GetPeso(),add.GetCapacidade());
             _quantArestas++;
         }
         public int GetPeso(int vertA, int vertB)
@@ -173,5 +195,44 @@ namespace TP_Grafos
             }
             return count;
         }
+        public bool TemArestaDeRetorno()
+        {
+            int n = _matrizND.GetLength(0);
+            bool[] visitado = new bool[n];
+
+            for (int i = 0; i < n; i++)
+            {
+                if (!visitado[i])
+                {
+                    if (BuscaProfundidade(i, -1, visitado))
+                        return true;
+                }
+            }
+            return false;
+        }
+        private bool BuscaProfundidade(int v, int antecessor, bool[] visitado)
+        {
+            visitado[v] = true;
+
+            for (int i = 0; i < _matrizND.GetLength(0); i++)
+            {
+                if (_matrizND[v, i] != null)
+                {
+                    if (!visitado[i])
+                    {
+                        if (BuscaProfundidade(i, v, visitado))
+                            return true;
+                    }
+                    else if (i != antecessor)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+
     }
 }
