@@ -110,7 +110,6 @@ namespace TP_Grafos
         {
 
             int n = GetQuantVertices();
-            // estrutura a rede residual G'(f) e coloca lista de adjacência
             List<ArestaResidual>[] adj = new List<ArestaResidual>[n + 1];
             for (int i = 0; i <= n; i++) adj[i] = new List<ArestaResidual>();
 
@@ -121,9 +120,7 @@ namespace TP_Grafos
                 int v = aresta.GetSucessor();
                 int cap = aresta.GetCapacidade();
 
-                // adiciona aresta direta (w -> v) 
                 ArestaResidual direta = new ArestaResidual(v, cap, 0, adj[v].Count);
-                // adiciona aresta reversa (v -> w) 
                 ArestaResidual reversa = new ArestaResidual(w, 0, 0, adj[w].Count);
 
                 adj[w].Add(direta);
@@ -355,7 +352,6 @@ namespace TP_Grafos
                             if (sucessor.GetCor()==corAtual)
                             {
                                 pode=false;
-                                break;
                             }
                         }
                         if(pode)
@@ -393,131 +389,6 @@ namespace TP_Grafos
                 }
             }
             return false;
-        }
-
-
-        // --------------- sugestão deepseek
-        public bool EhHamiltoniano(out List<int> cicloHamiltoniano)
-        {
-            cicloHamiltoniano = new List<int>();
-
-
-            // Grau mínimo de entrada e saída deve ser pelo menos n/2 para garantir hamiltoniano (Teorema de Dirac)
-            // Mas para um algoritmo exato, vamos usar backtracking
-
-            int n = GetQuantVertices();
-
-            // Inicia o array para armazenar o caminho
-            int[] caminho = new int[n];
-            for (int i = 0; i < n; i++)
-                caminho[i] = -1;
-
-            // Começa do vértice 1
-            caminho[0] = 1;
-
-            // Array para marcar vértices já visitados
-            bool[] visitado = new bool[n + 1];
-            visitado[1] = true;
-
-            // Tenta completar o ciclo começando do vértice 1
-            if (!BuscarCicloHamiltoniano(1, caminho, visitado, 1))
-            {
-                cicloHamiltoniano = null;
-                return false;
-            }
-
-            // Converte o array para lista
-            cicloHamiltoniano = new List<int>(caminho);
-            // Adiciona o primeiro vértice no final para formar ciclo completo
-            cicloHamiltoniano.Add(caminho[0]);
-
-            return true;
-        }
-
-        private bool BuscarCicloHamiltoniano(int pos, int[] caminho, bool[] visitado, int contador)
-        {
-            int n = GetQuantVertices();
-
-            // Se todos os vértices foram incluídos no caminho
-            if (contador == n)
-            {
-                // Verifica se há aresta do último vértice para o primeiro
-                int ultimoVertice = caminho[pos - 1];
-                int primeiroVertice = caminho[0];
-
-                // Verifica se existe aresta do último para o primeiro
-                List<Aresta> arestasUltimo = _armazenamento.GetArestasIncidentes(ultimoVertice);
-                foreach (Aresta a in arestasUltimo)
-                {
-                    if (a.GetSucessor() == primeiroVertice)
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-            // Tenta todos os vértices como próximo candidato
-            for (int v = 1; v <= n; v++)
-            {
-                // Verifica se pode adicionar v ao caminho
-                if (PodeAdicionarAoHamiltoniano(caminho[pos - 1], v, visitado))
-                {
-                    caminho[pos] = v;
-                    visitado[v] = true;
-
-                    // Recursão
-                    if (BuscarCicloHamiltoniano(pos + 1, caminho, visitado, contador + 1))
-                        return true;
-
-                    // Backtracking
-                    caminho[pos] = -1;
-                    visitado[v] = false;
-                }
-            }
-
-            return false;
-        }
-
-        private bool PodeAdicionarAoHamiltoniano(int atual, int proximo, bool[] visitado)
-        {
-            // Se o vértice já foi visitado, não pode
-            if (visitado[proximo])
-                return false;
-
-            // Verifica se existe aresta de 'atual' para 'proximo'
-            List<Aresta> arestasAtual = _armazenamento.GetArestasIncidentes(atual);
-            foreach (Aresta a in arestasAtual)
-            {
-                if (a.GetSucessor() == proximo)
-                    return true;
-            }
-
-            return false;
-        }
-
-        public string VerificarEExibirHamiltoniano()
-        {
-            List<int> ciclo;
-
-            if (EhHamiltoniano(out ciclo))
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine("O grafo É hamiltoniano!");
-                sb.AppendLine("Ciclo Hamiltoniano encontrado:");
-
-                for (int i = 0; i < ciclo.Count - 1; i++)
-                {
-                    sb.Append(ciclo[i] + " → ");
-                }
-                sb.AppendLine(ciclo[ciclo.Count - 1].ToString());
-
-                return sb.ToString();
-            }
-            else
-            {
-                return "O grafo NÃO é hamiltoniano.";
-            }
         }
     }
 }

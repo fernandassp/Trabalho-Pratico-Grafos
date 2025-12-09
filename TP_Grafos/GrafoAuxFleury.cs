@@ -64,7 +64,7 @@ namespace TP_Grafos
                 // filtra arestas que saem do vértice atual 
                 List<Aresta> incidentes = arestasRestantes.Where(a => a.GetAntecessor() == v).ToList();
 
-                if (incidentes.Count == 0) return null; // Beco sem saída inesperado (grafo desconexo)
+                if (incidentes.Count == 0) return null; // beco sem saída inesperado (grafo desconexo)
 
                 Aresta arestaEscolhida = null;
                 int maxAlcance = -1;
@@ -132,7 +132,6 @@ namespace TP_Grafos
             TempoGlobal = 0;
             List<int> visitados = new List<int>();
 
-            // Lógica de inversão
             List<Aresta> arestasParaBusca = new List<Aresta>();
             foreach (Aresta a in _arestas)
             {
