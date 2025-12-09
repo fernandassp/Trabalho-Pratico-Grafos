@@ -352,9 +352,10 @@ namespace TP_Grafos
         }
 
 
-        public void WelshPowell() // alterar retorno
+        public string WelshPowell()
         {
             List<Vertice> ordenados = _armazenamento.GetVerticesND().OrderByDescending(v => v.GetGrau()).ToList();
+            string resultado = "";
 
             List<int> cores = new List<int>();
             cores.Add(1);
@@ -395,12 +396,20 @@ namespace TP_Grafos
                 cores.Add(c);
                 corAtual = cores[c-1];
             }
-            cores.RemoveAt(cores.Count-1); 
-            Console.WriteLine("quantidade de cores: "+ (cores.Count));
-            foreach (Vertice v in ordenados) {
-                Console.WriteLine(v.GetNumero()+" cor: "+ v.GetCor());
+            cores.RemoveAt(cores.Count-1);
+            resultado += "quantidade de turnos: " + cores.Count+ "\n";
+            foreach (int turno in cores) {
+                resultado += $"turno {turno}: ";
+                foreach (Vertice v in ordenados)
+                {
+                    if (v.GetCor() == turno)
+                    {
+                        resultado += $"{v.GetNumero()} ";
+                    }
+                }
+                resultado += "\n";
             }
-            
+            return resultado;
         }
 
         private bool HaVerticesNaoColoridos(List<Vertice> vertices)

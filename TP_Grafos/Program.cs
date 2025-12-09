@@ -126,7 +126,9 @@
                         {
                             arquivoLog.WriteLine($"\n\tGRAFO {i}\n");
                             Console.WriteLine($"\n\tGRAFO {i}\n");
-                            rede.WelshPowell(); // ver retorno ainda
+                            string resultado = rede.WelshPowell();
+                            Console.WriteLine(resultado);
+                            arquivoLog.WriteLine(resultado);
                             i++;
                         }
 
