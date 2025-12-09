@@ -23,7 +23,7 @@
         }
         static void Main(string[] args)
         {
-            GrafoDirecionado rede1 = CriarRede("grafo01.txt"); //
+            GrafoDirecionado rede1 = CriarRede("grafo01.txt");
             GrafoDirecionado rede2 = CriarRede("grafo02.txt");
             GrafoDirecionado rede3 = CriarRede("grafo03.txt");
             GrafoDirecionado rede4 = CriarRede("grafo04.txt");

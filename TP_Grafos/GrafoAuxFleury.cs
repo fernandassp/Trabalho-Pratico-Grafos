@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TP_Grafos
 {
@@ -15,203 +12,120 @@ namespace TP_Grafos
         public GrafoAuxFleury(int quantV, List<Aresta> arestas)
         {
             _vertices = new List<Vertice>();
-            _arestas = arestas;
+            _arestas = new List<Aresta>(arestas); // copia para contiuar com a original
             for (int i = 1; i <= quantV; i++)
             {
                 _vertices.Add(new Vertice(i));
             }
         }
 
-        // Método de Fleury seguindo o pseudocódigo
-        public List<int> EncontrarCicloEuleriano(int verticeInicialParametro)
+        public List<int> EncontrarCicloEuleriano()
         {
-            // 1. Se V(G) possuir 3 ou mais vértices de grau ímpar então PARE;
-            // Calculando graus (considerando entrada + saída para definir "grau" no contexto do algoritmo)
-            int[] graus = new int[_vertices.Count + 1];
+            // para todo vértice, grau entrada = grau saída.
+            int[] grauEntrada = new int[_vertices.Count + 1];
+            int[] grauSaida = new int[_vertices.Count + 1];
 
             foreach (Aresta a in _arestas)
             {
-                graus[a.GetAntecessor()] = graus[a.GetAntecessor()] + 1;
-                graus[a.GetSucessor()] = graus[a.GetSucessor()] + 1;
+                grauSaida[a.GetAntecessor()]++;
+                grauEntrada[a.GetSucessor()]++;
             }
 
-            int contagemImpares = 0;
-            List<int> verticesImpares = new List<int>();
-
-            for (int i = 1; i < graus.Length; i++)
+            // se qualquer vértice desbalanceado, não existe ciclo euleriano.
+            for (int i = 1; i <= _vertices.Count; i++)
             {
-                if (graus[i] % 2 != 0)
+                if (grauSaida[i] != grauEntrada[i])
                 {
-                    contagemImpares++;
-                    verticesImpares.Add(i);
+                    return null;
                 }
             }
 
-            if (contagemImpares >= 3)
+            // procura um ponto de partida válido, qualquer vértice que tenha arestas
+            int inicio = -1;
+            for (int i = 1; i <= _vertices.Count; i++)
             {
-                return null; // PARE
+                if (grauSaida[i] > 0)
+                {
+                    inicio = i;
+                    break;
+                }
             }
 
-            // 2. Seja G’ = (V’, E’) tal que V’ = V(G)e E’ = E(G);
-            List<Aresta> arestasRestantes = new List<Aresta>();
-            foreach (Aresta a in _arestas)
-            {
-                arestasRestantes.Add(a);
-            }
+            if (inicio == -1) return null; // grafo sem arestas
 
-            // 3. Selecionar vértice inicial v = V’ (escolher v cujo grau seja ímpar, se houver)
-            int v;
-            if (verticesImpares.Count > 0)
-            {
-                v = verticesImpares[0];
-            }
-            else
-            {
-                v = _vertices[0].GetNumero();
-            }
-
+            // execução do metodo de fleury
+            List<Aresta> arestasRestantes = new List<Aresta>(_arestas);
             List<int> ciclo = new List<int>();
+            int v = inicio;
             ciclo.Add(v);
 
-            // 4. Enquanto E’ diferente de vazio efetuar
             while (arestasRestantes.Count > 0)
             {
-                // Obter arestas que saem de v (antecessor == v)
-                List<Aresta> incidentes = new List<Aresta>();
-                foreach (Aresta a in arestasRestantes)
-                {
-                    if (a.GetAntecessor() == v)
-                    {
-                        incidentes.Add(a);
-                    }
-                }
+                // filtra arestas que saem do vértice atual 
+                List<Aresta> incidentes = arestasRestantes.Where(a => a.GetAntecessor() == v).ToList();
 
-                // Se não houver arestas saindo, mas a lista global não está vazia, o caminho travou.
-                // Isso previne loop infinito se o grafo for desconexo ou direcionado incorretamente.
-                if (incidentes.Count == 0)
-                {
-                    // Força a saída do laço alterando a condição do while indiretamente ou retornando o que tem
-                    return ciclo;
-                }
+                if (incidentes.Count == 0) return null; // Beco sem saída inesperado (grafo desconexo)
 
                 Aresta arestaEscolhida = null;
+                int maxAlcance = -1;
 
-                // a. se d(v) > 1 então Selecionar aresta {v,w} que não seja ponte em G’;
-                if (incidentes.Count > 1)
+                // escolhe a aresta que permite alcançar mais vértices no futuro
+                foreach (Aresta candidata in incidentes)
                 {
-                    bool achouNaoPonte = false;
+                    arestasRestantes.Remove(candidata); // tira temporariamente
 
-                    // Procura uma aresta que não seja ponte sem usar break
-                    for (int k = 0; k < incidentes.Count; k++)
+                    // verifica alcance a partir do destino
+                    int alcance = BuscaLarguraContarAlcancaveis(candidata.GetSucessor(), arestasRestantes);
+
+                    if (alcance > maxAlcance)
                     {
-                        if (!achouNaoPonte)
-                        {
-                            Aresta candidata = incidentes[k];
-                            bool ePonte = EhPonte(v, candidata, arestasRestantes);
-
-                            if (!ePonte)
-                            {
-                                arestaEscolhida = candidata;
-                                achouNaoPonte = true;
-                            }
-                        }
+                        maxAlcance = alcance;
+                        arestaEscolhida = candidata;
                     }
 
-                    // Se todas forem pontes (ou não achou nenhuma não-ponte), pega a primeira
-                    if (!achouNaoPonte)
-                    {
-                        arestaEscolhida = incidentes[0];
-                    }
-                }
-                else
-                {
-                    // b. senão Selecionar a única aresta {v,w} disponível em G’;
-                    arestaEscolhida = incidentes[0];
+                    arestasRestantes.Add(candidata); // coloca de volta
                 }
 
-                // c. v = w;
-                int w = arestaEscolhida.GetSucessor();
-
-                // E’ = E’ - {v,w};
+                // tira a aresta para seguir com o metodo
+                v = arestaEscolhida.GetSucessor();
                 arestasRestantes.Remove(arestaEscolhida);
-
-                v = w;
                 ciclo.Add(v);
             }
 
             return ciclo;
         }
 
-        private bool EhPonte(int u, Aresta arestaAvaliada, List<Aresta> arestasAtuais)
+        // busca em largura para contar quantos vértices é possivel atingir a partir de do vertice de inicio
+        private int BuscaLarguraContarAlcancaveis(int inicio, List<Aresta> arestasDisponiveis)
         {
-            // 1. Conta acessíveis COM a aresta
-            int acessiveisCom = ContarAcessiveisBFS(u, arestasAtuais);
+            HashSet<int> visitados = new HashSet<int>();
+            Queue<int> fila = new Queue<int>();
 
-            // 2. Remove temporariamente
-            arestasAtuais.Remove(arestaAvaliada);
+            // agrupa as arestas por origem para facilitar a busca 
+            var adj = arestasDisponiveis
+                .GroupBy(a => a.GetAntecessor())
+                .ToDictionary(g => g.Key, g => g.Select(a => a.GetSucessor()).ToList());
 
-            // 3. Conta acessíveis SEM a aresta
-            int acessiveisSem = ContarAcessiveisBFS(u, arestasAtuais);
-
-            // 4. Adiciona de volta
-            arestasAtuais.Add(arestaAvaliada);
-
-            return acessiveisSem < acessiveisCom;
-        }
-
-        private int ContarAcessiveisBFS(int inicio, List<Aresta> arestasDisponiveis)
-        {
-            List<int> visitados = new List<int>();
-            List<int> fila = new List<int>();
-
-            fila.Add(inicio);
+            fila.Enqueue(inicio);
             visitados.Add(inicio);
 
             while (fila.Count > 0)
             {
-                int atual = fila[0];
-                fila.RemoveAt(0);
-
-                foreach (Aresta a in arestasDisponiveis)
+                int atual = fila.Dequeue();
+                if (adj.ContainsKey(atual))
                 {
-                    // Considerando adjacência para fins de conectividade (grafo tratado como não direcionado para verificação de ponte)
-                    int vizinho = -1;
-
-                    if (a.GetAntecessor() == atual)
+                    foreach (int vizinho in adj[atual])
                     {
-                        vizinho = a.GetSucessor();
-                    }
-                    else
-                    {
-                        if (a.GetSucessor() == atual)
-                        {
-                            vizinho = a.GetAntecessor();
-                        }
-                    }
-
-                    if (vizinho != -1)
-                    {
-                        bool jaVisitado = false;
-                        foreach (int vis in visitados)
-                        {
-                            if (vis == vizinho)
-                            {
-                                jaVisitado = true;
-                            }
-                        }
-
-                        if (!jaVisitado)
+                        if (!visitados.Contains(vizinho))
                         {
                             visitados.Add(vizinho);
-                            fila.Add(vizinho);
+                            fila.Enqueue(vizinho);
                         }
                     }
                 }
             }
             return visitados.Count;
         }
-
-        // --- MÉTODOS DE BUSCA EM PROFUNDIDADE JÁ EXISTENTES (Mantidos para compatibilidade) ---
 
         public List<int> BuscarEmProfundidade(bool inverter)
         {

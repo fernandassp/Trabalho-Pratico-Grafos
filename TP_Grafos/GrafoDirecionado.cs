@@ -264,15 +264,21 @@ namespace TP_Grafos
         {
             GrafoAuxFleury auxFleury = new GrafoAuxFleury(GetQuantVertices(), GetArestas());
 
-            if (FortementeConexo(auxFleury))
+            // chama o metodo pra encontrar o ciclo
+            List<int> ciclo = auxFleury.EncontrarCicloEuleriano();
+
+            if (ciclo != null)
             {
-                int verticeInicial = 1;
-                List<int> ciclo = auxFleury.EncontrarCicloEuleriano(verticeInicial);
+                // se retornou lista, é garantido que é um ciclo euleriano
+                Console.WriteLine("É possível percorrer todas as rotas exatamente uma vez e retornar ao ponto de partida.");
+                Console.WriteLine("\nSequência de visita proposta:");
                 return ciclo;
             }
-
-
-            return null;
+            else
+            {
+                Console.WriteLine("Não é possível percorrer todas as rotas e retornar ao ponto de partida.");
+                return null;
+            }
         }
 
 
